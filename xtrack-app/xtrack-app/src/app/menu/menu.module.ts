@@ -22,6 +22,10 @@ const routes: Routes = [
       {
         path: 'about',
         loadChildren: '../about/about.module#AboutPageModule'
+      },
+      {
+        path: 'add-expense',
+        loadChildren: '../add-expense/add-expense.module#AddExpensePageModule'
       }
     ]
   }

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Expense</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <div class="add-expense-container">
+      <ion-row>
+        <ion-col class="add-expense-heading">
+          <h2 ion-text>Create an Expense</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Amount</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Payee</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class="category">
+            <ion-label>Category</ion-label>
+            <ion-select interface="action-sheet">
+              <ion-select-option value="Food">Food</ion-select-option>
+              <ion-select-option value="Recharge">Recharge</ion-select-option>
+              <ion-select-option value="Shopping">Shopping</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="create-expense">
+          <ion-button expand="block" color="primary" >Create</ion-button>
+        </ion-col>
+        
+      </ion-row>
+    </div>
+  </ion-grid>    
+</ion-content>

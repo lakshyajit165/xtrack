@@ -22,6 +22,11 @@ export class MenuPage implements OnInit {
       name: 'About',
       path: '/xtrack/menu/about',
       icon: 'information'
+    },
+    {
+      name: 'Add Expense',
+      path: '/xtrack/menu/add-expense',
+      icon: 'add-circle'
     }
   ]
 
