@@ -2,6 +2,56 @@
  
 </ion-header>
 
-<ion-content>
-  <p>Login Page</p>
+<ion-content padding>
+  
+  <ion-grid>
+    <div class="login-container">
+        <ion-row>
+          <ion-col>
+            <div class="login-title">
+            <h1>Log In</h1>
+            </div>
+          </ion-col>
+      
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Username or Email</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item class="login-password">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="login-btn">
+          <ion-button expand="block" color="primary" >Log In</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item-divider></ion-item-divider>
+        </ion-col>
+        <ion-col>
+          <h5 class="login-ortext">OR</h5>
+        </ion-col>
+        <ion-col>
+          <ion-item-divider></ion-item-divider>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p class="register-msg">New to Xtrack? Register <span class="register-link">here</span></p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
 </ion-content>
