@@ -9,6 +9,7 @@ import { Router, RouterEvent } from '@angular/router';
 export class MenuPage implements OnInit {
 
   activePath = '';
+  public selectedIndex = 0;
 
   pages = [
    
@@ -26,11 +27,16 @@ export class MenuPage implements OnInit {
 
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
-      this.activePath = event.url
+      this.activePath = event.url;
+      //console.log(this.activePath);
     })
   }
 
   ngOnInit() {
+    const path = window.location.pathname.split('xtrack/menu/')[1];
+    if (path !== undefined) {
+      this.selectedIndex = this.pages.findIndex(page => page.name.toLowerCase() === path.toLowerCase());
+    }
   }
 
 }

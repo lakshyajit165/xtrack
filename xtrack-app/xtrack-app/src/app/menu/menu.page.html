@@ -1,14 +1,16 @@
 <ion-app>
   <ion-menu contentId="main-content" side="start" >
-    <ion-header>
+    <!-- <ion-header>
       <ion-toolbar>
         <ion-title>Menu</ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
     <ion-content>
-      <ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
-          <ion-item [routerLink]="page.path" routerDirection="root" [class.active-menu]="activePath === page.path">
+      <ion-list id="menu-list"> 
+        <ion-list-header>Hi There!</ion-list-header>
+          <ion-note>user@example.com</ion-note>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of pages; let i = index">
+          <ion-item (click)="selectedIndex = i" [routerLink]="page.path" routerDirection="root"  lines="none" [class.selected]="selectedIndex === i">
             
               <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
               <ion-label>{{page.name}}</ion-label>
