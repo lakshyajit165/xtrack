@@ -9,7 +9,9 @@
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
           <ion-item [routerLink]="page.path" routerDirection="root" [class.active-menu]="activePath === page.path">
-            {{page.name}}
+            
+              <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+              <ion-label>{{page.name}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

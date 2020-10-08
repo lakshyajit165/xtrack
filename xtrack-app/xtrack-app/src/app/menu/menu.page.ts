@@ -14,11 +14,13 @@ export class MenuPage implements OnInit {
    
     {
       name: 'Home',
-      path: '/xtrack/menu/home'
+      path: '/xtrack/menu/home',
+      icon: 'home'
     },
     {
       name: 'About',
-      path: '/xtrack/menu/about'
+      path: '/xtrack/menu/about',
+      icon: 'information'
     }
   ]
 
