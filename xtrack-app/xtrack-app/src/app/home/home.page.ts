@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  startdate="2020-10-10";
+  enddate="2020-11-10";
   constructor() { }
+
+  chartType(event: any) {
+    console.log(event.detail.value);
+  }
 
 }
