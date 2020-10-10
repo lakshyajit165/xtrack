@@ -60,6 +60,19 @@ public class PaymentController {
         return paymentService.getPaymentsByUser(currentUser, page, size);
     }
 
+    // get payments by a user within a date range
+    @GetMapping("/mypayments/filtered")
+    @PreAuthorize("hasRole('USER')")
+    public PagedResponse<PaymentResponse> getPaymentsByUserFilteredByDate(
+            @CurrentUser UserPrincipal currentUser,
+            @RequestParam(value = "from") String from,
+            @RequestParam(value = "to") String to,
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size
+    ) {
+        return paymentService.getPaymentsByUserByDate(currentUser, page, size, from, to);
+    }
+
     // edit payment(only desc and category are editable
     @PatchMapping("mypayments/{id}")
     @PreAuthorize("hasRole('USER')")

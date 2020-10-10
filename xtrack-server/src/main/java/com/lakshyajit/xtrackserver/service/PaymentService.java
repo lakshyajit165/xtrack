@@ -86,6 +86,44 @@ public class PaymentService {
         );
     }
 
+    // get payments by a user within a particular date range
+    public PagedResponse<PaymentResponse> getPaymentsByUserByDate(UserPrincipal currentUser,
+                                                                  int page, int size,
+                                                                  String from, String to){
+
+        validatePageNumberAndSize(page, size);
+        String email = currentUser.getEmail();
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        // create date formats
+        String fromDate = from + "T00:00:00Z";
+
+        String toDate = to + "T23:59:59Z";
+
+        Page<Payment> payments = paymentRepository.findByPayerFilteredByDate(email, fromDate, toDate, pageable);
+
+        if(payments.getNumberOfElements() == 0 || email.equals("")){
+
+            return new PagedResponse<>(Collections.emptyList(), payments.getNumber(),
+                    payments.getSize(), payments.getTotalElements(), payments.getTotalPages(), payments.isLast());
+
+        }
+
+        List<PaymentResponse> paymentResponses = payments.map(payment -> {
+            return ModelMapper.mapPaymentToPaymentResponse(payment);
+        }).getContent();
+        
+        return new PagedResponse<>(
+                paymentResponses,
+                payments.getNumber(),
+                payments.getSize(),
+                payments.getTotalElements(),
+                payments.getTotalPages(),
+                payments.isLast()
+        );
+    }
+
     //edit a payment(only description and category fields are editable)
     public Payment updatePayment(String description, String category, Long id) throws ResourceNotFoundException {
 
