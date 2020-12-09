@@ -10,12 +10,17 @@
         <ion-list-header>Hi There!</ion-list-header>
           <ion-note>user@example.com</ion-note>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages; let i = index">
-          <ion-item (click)="selectedIndex = i" [routerLink]="page.path" routerDirection="root"  lines="none" [class.selected]="selectedIndex === i">
+          <ion-item (click)="selectedIndex = i" [routerLink]="page.path" routerDirection="root"  lines="none" [routerLinkActive]="['selected']">
             
               <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
               <ion-label>{{page.name}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
+        <!-- For logout-->
+        <ion-item lines="none">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>

@@ -33,15 +33,21 @@ export class MenuPage implements OnInit {
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
-      //console.log(this.activePath);
+     // console.log(this.activePath);
     })
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('xtrack/menu/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.pages.findIndex(page => page.name.toLowerCase() === path.toLowerCase());
-    }
+    // const path = window.location.pathname.split('xtrack/menu/')[1];
+    // if (path !== undefined) {
+    //   this.selectedIndex = this.pages.findIndex(page => {
+        
+    //     let pname = page.name;
+    //     pname = pname === 'Add Expense' ? 'add-expense' : pname;
+    //     console.log(pname);
+    //     return pname.toLowerCase() === path.toLowerCase()
+    //   });
+    // }
   }
 
 }
