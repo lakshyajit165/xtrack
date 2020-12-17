@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Platform } from '@ionic/angular';
+import { payeeData } from '../providers/payeeData.provider';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     public platform: Platform,
-    private qrScanner: QRScanner
+    private qrScanner: QRScanner,
+    private payeeData: payeeData
   ) { 
     this.platform.backButton.subscribeWithPriority(0, () => {
       document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -54,8 +56,12 @@ export class HomePage implements OnInit {
              // upi://pay?pa=8895844786@ybl&pn=LAKSHYAJIT%20LAXMIKANT&mc=0000&mode=02&purpose=00
               const payee = this.getParamsFromUPIString('pa', textFound);
 
-              
-              console.log(payee);
+              // set payee data to provider
+              this.payeeData.payeedata = payee;
+
+              // route to add payment page
+              this.routeFunction('/xtrack/menu/add-expense');
+              // console.log(payee);
               // scan success => extract data => add data to provider => route to Add expense page
               
             }, (err) => {

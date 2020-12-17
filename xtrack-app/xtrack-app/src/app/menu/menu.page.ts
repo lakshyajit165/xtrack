@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { NavController, Platform } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-menu',
@@ -30,11 +32,16 @@ export class MenuPage implements OnInit {
     }
   ]
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router
+  ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
      // console.log(this.activePath);
     })
+
+   
+   
   }
 
   ngOnInit() {
@@ -48,6 +55,10 @@ export class MenuPage implements OnInit {
     //     return pname.toLowerCase() === path.toLowerCase()
     //   });
     // }
+   
   }
+
+  
+  
 
 }

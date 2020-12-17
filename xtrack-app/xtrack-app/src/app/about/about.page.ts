@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-about',
   templateUrl: './about.page.html',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutPage implements OnInit {
 
-  constructor() { }
+  
+
+  constructor(
+   
+  ) { 
+   
+  }
+
+  
 
   ngOnInit() {
   }

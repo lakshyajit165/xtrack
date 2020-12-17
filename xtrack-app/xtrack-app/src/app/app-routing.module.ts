@@ -3,6 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'xtrack',
+    pathMatch: 'full'
+  },
+  {
     path: 'xtrack',
     loadChildren: './menu/menu.module#MenuPageModule'
   },
