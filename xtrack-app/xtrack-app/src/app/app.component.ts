@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 
-import { AlertController, NavController, Platform } from '@ionic/angular';
+import { AlertController, IonRouterOutlet, NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Location } from '@angular/common';
@@ -16,6 +16,11 @@ import { PreviousrouteService } from './services/previousroute.service';
 export class AppComponent implements OnInit{
 
   previousPage: string;
+
+  @ViewChildren(IonRouterOutlet) routerOutlets: QueryList < IonRouterOutlet > ;
+
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
   
   constructor(
     private platform: Platform,
@@ -42,6 +47,8 @@ export class AppComponent implements OnInit{
       }
     });
 
+    this.backButtonEvent();
+
    
     // this.platform.backButton.subscribeWithPriority(5, () => {
     //   console.log('Handler called to force close!');
@@ -54,28 +61,69 @@ export class AppComponent implements OnInit{
     //   })
     // });
   }
-  ngOnInit(): void {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      //console.log(this.previousPage);
-      console.log('Handler was called!');
 
-      if (this.location.isCurrentPathEqualTo('/xtrack/menu/home')) {
-
-        // Show Exit Alert!
-        console.log('Show Exit Alert!');
-        
-        this.showExitConfirm();
-       // processNextHandler();
-      } else {
-        this.routeFunction(this.previousPage);
-        
-      }
+  backButtonEvent() {
+    this.platform.backButton.subscribeWithPriority(999, () => {
+      console.log('back btn clicked');
+      this.routerOutlets.forEach(async(outlet: IonRouterOutlet) => {
+        if (this._router.url != '/xtrack/menu/home') {
+          // await this.router.navigate(['/']);
+         // await this.location.back();
+         this.routeFunction(this.previousPage);
+        } else if (this._router.url === '/xtrack/menu/home') {
+          if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
+            this.lastTimeBackPress = new Date().getTime();
+            this.presentAlertConfirm();
+          } else {
+            navigator['app'].exitApp();
+          }
+        }
+      });
     });
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      // header: 'Confirm!',
+      message: 'Are you sure you want to exit the app?',
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {}
+      }, {
+        text: 'Exit',
+        handler: () => {
+          navigator['app'].exitApp();
+        }
+      }]
+    });
+  
+    await alert.present();
+  }
+
+  ngOnInit(): void {
+    // this.platform.backButton.subscribeWithPriority(10, () => {
+    //   //console.log(this.previousPage);
+    //   console.log('Handler was called!');
+
+    //   if (this.location.isCurrentPathEqualTo('/xtrack/menu/home')) {
+
+    //     // Show Exit Alert!
+    //     console.log('Show Exit Alert!');
+        
+    //     this.showExitConfirm();
+    //    // processNextHandler();
+    //   } else {
+    //     this.routeFunction(this.previousPage);
+        
+    //   }
+    // });
 
   }
 
   ngOnDestroy(): void {
-    
+    this.platform.backButton.unsubscribe();
   }
 
   routeFunction(route: string): void {

@@ -69,11 +69,21 @@ export class HomePage implements OnInit {
             });
 
         } else if (status.denied) {
+
+          // close scanner here
+          this.closeScanner();
+
         } else {
+
+          // close scanner here
+          this.closeScanner();
 
         }
       })
-      .catch((e: any) => console.log('Error is', e));
+      .catch((e: any) => {
+        console.log('Error is', e);
+        this.closeScanner();
+      });
   }
 
   closeScanner() {

@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: './register/register.module#RegisterPageModule'
+  },
+  {
+    path: 'qrscan',
+    loadChildren: () => import('./qrscan/qrscan.module').then( m => m.QrscanPageModule)
   }
 ];
 
