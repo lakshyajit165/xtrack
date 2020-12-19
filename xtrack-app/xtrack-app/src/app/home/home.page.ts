@@ -29,68 +29,13 @@ export class HomePage implements OnInit {
     private qrScanner: QRScanner,
     private payeeData: payeeData
   ) { 
-    this.platform.backButton.subscribeWithPriority(0, () => {
-      document.getElementsByTagName('body')[0].style.opacity = '1';
-      this.scanSub.unsubscribe();
-    });
+    // this.platform.backButton.subscribeWithPriority(0, () => {
+    //   document.getElementsByTagName('body')[0].style.opacity = '1';
+    //   this.scanSub.unsubscribe();
+    // });
   }
 
-  scan() {
-    // Optionally request the permission early
-    this.qrScanner.prepare().
-      then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          this.qrScanner.show();
-          this.scanSub = document.getElementsByTagName('body')[0].style.opacity = '0';
-          // debugger
-          this.scanSub = this.qrScanner.scan()
-            .subscribe((textFound: string) => {
-              document.getElementsByTagName('body')[0].style.opacity = '1';
-              this.qrScanner.hide();
-              this.scanSub.unsubscribe();
-
-              this.scannedData = textFound;
-              console.log(textFound);
-
-              // sample scanned text
-             // upi://pay?pa=8895844786@ybl&pn=LAKSHYAJIT%20LAXMIKANT&mc=0000&mode=02&purpose=00
-              const payee = this.getParamsFromUPIString('pa', textFound);
-
-              // set payee data to provider
-              this.payeeData.payeedata = payee;
-
-              // route to add payment page
-              this.routeFunction('/xtrack/menu/add-expense');
-              // console.log(payee);
-              // scan success => extract data => add data to provider => route to Add expense page
-              
-            }, (err) => {
-              alert(JSON.stringify(err));
-            });
-
-        } else if (status.denied) {
-
-          // close scanner here
-          this.closeScanner();
-
-        } else {
-
-          // close scanner here
-          this.closeScanner();
-
-        }
-      })
-      .catch((e: any) => {
-        console.log('Error is', e);
-        this.closeScanner();
-      });
-  }
-
-  closeScanner() {
-    this.isOn = false;
-    this.qrScanner.hide();
-    this.qrScanner.destroy();
-  }
+ 
 
   chartType(event: any) {
     console.log(event.detail.value);
@@ -104,13 +49,13 @@ export class HomePage implements OnInit {
     this.router.navigate([path]);
   }
 
-  getParamsFromUPIString(params: string, url: string): string {
+  // getParamsFromUPIString(params: string, url: string): string {
 
-    let href = url;
-    let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
-    let queryString = reg.exec(href);
-    return queryString ? queryString[1] : null;
+  //   let href = url;
+  //   let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+  //   let queryString = reg.exec(href);
+  //   return queryString ? queryString[1] : null;
 
-  }
+  // }
 
 }
