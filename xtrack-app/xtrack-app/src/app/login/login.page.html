@@ -14,28 +14,32 @@
           </ion-col>
       
       </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating">Username or Email</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item class="login-password">
-            <ion-label position="floating">Password</ion-label>
-            <ion-input ></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col class="login-btn">
-          <ion-button expand="block" color="primary" >Log In</ion-button>
-        </ion-col>
-      </ion-row>
-
+      <form [formGroup]="loginform" (ngSubmit)="loginSubmit()">
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Username or Email</ion-label>
+                <ion-input formControlName="usernameOrEmail"></ion-input>
+                <small *ngIf="loginform.get('usernameOrEmail').hasError() && (loginform.get('usernameOrEmail').dirty || loginform.get('username').touched)">
+                  Email address is badly formatted!
+                </small>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item class="login-password">
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="login-btn">
+              <ion-button type="submit" expand="block" color="primary" >Log In</ion-button>
+            </ion-col>
+          </ion-row>
+      </form>
       <ion-row>
         <ion-col>
           <ion-item-divider></ion-item-divider>

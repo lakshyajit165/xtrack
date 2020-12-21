@@ -13,10 +13,17 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { payeeData } from '../app/providers/payeeData.provider';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    FormsModule,
+    ReactiveFormsModule,
+    IonicModule.forRoot(), 
+    AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
