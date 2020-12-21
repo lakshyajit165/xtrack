@@ -14,6 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { payeeData } from '../app/providers/payeeData.provider';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,9 +24,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule, 
     FormsModule,
+    MaterialModule,
     ReactiveFormsModule,
     IonicModule.forRoot(), 
-    AppRoutingModule],
+    AppRoutingModule, BrowserAnimationsModule],
   providers: [
     StatusBar,
     SplashScreen,

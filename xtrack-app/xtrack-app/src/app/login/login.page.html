@@ -18,19 +18,35 @@
           <ion-row>
             <ion-col>
               <ion-item>
-                <ion-label position="floating">Username or Email</ion-label>
-                <ion-input formControlName="usernameOrEmail"></ion-input>
-                <small *ngIf="loginform.get('usernameOrEmail').hasError() && (loginform.get('usernameOrEmail').dirty || loginform.get('username').touched)">
-                  Email address is badly formatted!
-                </small>
+                <mat-form-field class="signin-full-width" appearance="outline">
+                  <mat-label>UserName or Email</mat-label>
+                  <input matInput formControlName="usernameOrEmail" [errorStateMatcher]="matcher"
+                         placeholder="UserName or Email">
+                  <mat-hint>(between 4 and 30 characters)</mat-hint>
+                  <mat-error *ngIf="usernameOrEmailValue.hasError('required')">
+                    Username or Email <strong>required!</strong>
+                  </mat-error>
+                </mat-form-field>
+
               </ion-item>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-item class="login-password">
-                <ion-label position="floating">Password</ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
+                <mat-form-field class="signin-full-width" appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput formControlName="password" [errorStateMatcher]="matcher"
+                          placeholder="Ex. john@123" type="password">
+                  <mat-hint>(between 6 and 20 characters)</mat-hint>
+                  <mat-error *ngIf="passwordValue.hasError('minLength') || passwordValue.hasError('maxLength') ||  !passwordValue.hasError('required')">
+                      Please enter a valid password
+                  </mat-error>
+                  <mat-error *ngIf="passwordValue.hasError('required')">
+                      Password is <strong>required!</strong>
+                  </mat-error>
+              </mat-form-field>
+
               </ion-item>
             </ion-col>
           </ion-row>
