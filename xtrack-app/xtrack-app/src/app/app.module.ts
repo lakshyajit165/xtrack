@@ -17,6 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
+import { HttpClientModule } from '@angular/common/http'; 
+import { api } from './providers/api.provider';
+
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,13 +32,16 @@ import { MaterialModule } from './material/material.module';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(), 
+    HttpClientModule,
+    IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule],
   providers: [
     StatusBar,
     SplashScreen,
     payeeData,
     QRScanner,
+    NativeStorage,
+    api,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

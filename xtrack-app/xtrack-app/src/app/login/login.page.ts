@@ -2,6 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {Validators, FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AuthService } from '../services/auth/auth.service';
+import { IUserLogin } from '../model/IUserLogin';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,11 +29,23 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginPage implements OnInit {
 
   private loginform : FormGroup;
-  formGroup: any;
+  user: IUserLogin = {
+    usernameOrEmail: '',
+    password: ''
+  };
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  accessToken: string = 'accessToken';
 
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder 
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private storage: NativeStorage
+
   ) {
 
     this.loginform = this.formBuilder.group({
@@ -52,6 +74,38 @@ export class LoginPage implements OnInit {
 
 
   loginSubmit(): void {
-    console.log(this.loginform.value)
+    console.log(this.loginform.value);
+
+    this.user.usernameOrEmail = this.loginform.value.usernameOrEmail;
+    this.user.password = this.loginform.value.password;
+
+    this.authService.logIn(this.user).subscribe(res => {
+
+      // store the token in localstorage
+      // console.log(res);
+      this.storage.setItem('key', res[this.accessToken])
+      .then(
+        () => {},
+        error => {}
+      );
+
+      // navigate to home
+      this.router.navigate(['/xtrack/menu/home']);
+      this.openSnackBar('Login successful!');
+
+    }, err => {
+      this.openSnackBar('Bad credentials!');
+    })
+
   }
+
+  openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Close', {
+      duration: 3000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: 'snackbar'
+    });
+  }
+
 }
