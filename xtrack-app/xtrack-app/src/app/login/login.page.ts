@@ -34,6 +34,8 @@ export class LoginPage implements OnInit {
     password: ''
   };
 
+  pageloading: boolean = true;
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
@@ -71,6 +73,11 @@ export class LoginPage implements OnInit {
   get passwordValue() {
     return this.loginform.get('password');
   }
+
+  ionViewDidEnter() {
+    this.pageloading = false;
+  }
+
 
 
   loginSubmit(): void {

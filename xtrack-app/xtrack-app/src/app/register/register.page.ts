@@ -48,6 +48,8 @@ export class RegisterPage implements OnInit {
   error: string = 'error';
   success: string = 'success';
   message: string = 'message';
+  
+  pageloading: boolean = true;
 
   
   constructor(
@@ -65,6 +67,10 @@ export class RegisterPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       
   });
+  }
+
+  ionViewDidEnter() {
+    this.pageloading = false;
   }
 
   get nameValue() {
