@@ -27,8 +27,12 @@ export class AuthService {
   }
 
   logOut() {
-    localStorage.removeItem('key');
-    localStorage.clear();
+    this.storage.remove('key').then(
+      val => {},
+      err => {}
+      
+    )
+  
   }
 
   async isLoggedIn(): Promise<boolean> {

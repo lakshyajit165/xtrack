@@ -4,6 +4,15 @@ import {FormBuilder, FormGroup, FormControl, AbstractControl, FormGroupDirective
 import {ErrorStateMatcher} from '@angular/material/core';
 
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { IUser } from '../model/IUser';
+import { AuthService } from '../services/auth/auth.service';
+
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,10 +32,29 @@ export class RegisterPage implements OnInit {
   registerForm: FormGroup;
 
   matcher = new MyErrorStateMatcher();
+
+  user: IUser = {
+    name: '',
+    email: '',
+    username: '',
+    password: ''
+  };
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  status: string = 'status';
+  errors: string = 'errors';
+  error: string = 'error';
+  success: string = 'success';
+  message: string = 'message';
+
   
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -59,6 +87,52 @@ export class RegisterPage implements OnInit {
     this.registerForm.markAsPristine();
     this.registerForm.markAsUntouched();
   }
+
+  
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    // console.log(this.formGroup.value.email);
+    this.user.email = this.registerForm.value.email;
+    this.user.name = this.registerForm.value.name;
+    this.user.username = this.registerForm.value.username;
+    this.user.password = this.registerForm.value.password;
+
+    console.log(this.user);
+    this.authService.signUp(this.user).subscribe(res => {
+
+      // success
+      if(res[this.success] === true){
+        
+
+        this.openSnackBar('Sign Up successful!');
+        this.router.navigate(['/login']);
+       
+      } 
+    }, err => {
+      // check for 'errors' field
+      console.log(err);
+      if(!err[this.success]){
+        this.openSnackBar(err[this.error][this.message]);
+      }else{
+        this.openSnackBar('An error occurred. Try again!');
+      }
+
+     
+    });
+   
+  }
+
+
+
+  openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Close', {
+      duration: 3000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+
 
 
 

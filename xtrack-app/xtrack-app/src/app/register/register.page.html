@@ -13,7 +13,7 @@
           </ion-col>
       
       </ion-row>
-      <form [formGroup]="registerForm">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <ion-row>
             <ion-col>
               <ion-item>
