@@ -86,8 +86,9 @@ export class LoginPage implements OnInit {
     this.user.usernameOrEmail = this.loginform.value.usernameOrEmail;
     this.user.password = this.loginform.value.password;
 
-    this.authService.logIn(this.user).subscribe(res => {
-
+    this.authService.logIn(this.user)
+    .then(res => {
+      console.log(res);
       // store the token in localstorage
       // console.log(res);
       this.storage.setItem('key', res[this.accessToken])
@@ -95,12 +96,13 @@ export class LoginPage implements OnInit {
         () => {},
         error => {}
       );
-
+     
       // navigate to home
       this.router.navigate(['/xtrack/menu/home']);
       this.openSnackBar('Login successful!');
 
-    }, err => {
+    })
+    .catch(err => {
       this.openSnackBar('Bad credentials!');
     })
 

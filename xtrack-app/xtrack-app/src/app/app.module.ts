@@ -17,10 +17,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
-import { HttpClientModule } from '@angular/common/http'; 
 import { api } from './providers/api.provider';
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 
@@ -32,7 +32,6 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule,
     IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule],
   providers: [
@@ -41,6 +40,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     payeeData,
     QRScanner,
     NativeStorage,
+    HTTP,
     api,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http/ngx';
 import { Observable } from 'rxjs';
 import { IUser } from '../../model/IUser';
 import { IUserLogin } from '../../model/IUserLogin';
 import { api } from 'src/app/providers/api.provider';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,19 @@ export class AuthService {
 
   serviceRoute = this.api.serviceRoute;
   constructor(
-    private http: HttpClient,
+    private http: HTTP,
     private api: api,
     private storage: NativeStorage
   ) { }
 
-  signUp(user: IUser): Observable<object> {
-    return this.http.post(this.serviceRoute + 'v1/auth/signup', user);
+  signUp(user: IUser): Promise<object> {
+    
+    return this.http.post(this.serviceRoute + 'v1/auth/signup', user, {})
+   
   }
 
-  logIn(user: IUserLogin): Observable<object> {
-    return this.http.post(this.serviceRoute + 'v1/auth/signin', user);
+  logIn(user: IUserLogin): Promise<object> {
+    return this.http.post(this.serviceRoute + 'v1/auth/signin', user, {});
   }
 
   logOut() {

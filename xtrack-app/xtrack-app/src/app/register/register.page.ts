@@ -104,7 +104,8 @@ export class RegisterPage implements OnInit {
     this.user.password = this.registerForm.value.password;
 
     console.log(this.user);
-    this.authService.signUp(this.user).subscribe(res => {
+    this.authService.signUp(this.user)
+    .then(res => {
 
       // success
       if(res[this.success] === true){
@@ -114,17 +115,17 @@ export class RegisterPage implements OnInit {
         this.router.navigate(['/login']);
        
       } 
-    }, err => {
-      // check for 'errors' field
-      console.log(err);
-      if(!err[this.success]){
-        this.openSnackBar(err[this.error][this.message]);
-      }else{
-        this.openSnackBar('An error occurred. Try again!');
+    })
+    .catch(
+      err => {
+        console.log(err);
+        if(!err[this.success]){
+          this.openSnackBar(err[this.error][this.message]);
+        }else{
+          this.openSnackBar('An error occurred. Try again!');
+        }
       }
-
-     
-    });
+    )
    
   }
 
