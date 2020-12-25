@@ -19,22 +19,55 @@ export class AuthService {
     private storage: NativeStorage
   ) { }
 
-  signUp(user: IUser): Promise<object> {
+  async signUp(user: IUser): Promise<object> {
     
-    return this.http.post(this.serviceRoute + 'v1/auth/signup', user, {})
+    let response: object;
+    this.http.setDataSerializer('json');
+    await this.http.post(this.serviceRoute + 'v1/auth/signup', user, {})
+    .then(res => {
+      
+      response = JSON.parse(res.data);
+     
+
+    })
+    .catch(err => {
+      // console.log("ERR", err);
+      response = JSON.parse(err.error);
+      // console.log("ERR PARSED", response);
+    });
+
+    return response;
    
   }
 
-  logIn(user: IUserLogin): Promise<object> {
-    return this.http.post(this.serviceRoute + 'v1/auth/signin', user, {});
+  async logIn(user: IUserLogin): Promise<object> {
+
+    let response: object;
+    this.http.setDataSerializer('json');
+
+    await this.http.post(this.serviceRoute + 'v1/auth/signin', user, {})
+    .then(res => {
+      // console.log(res);
+      // console.log(JSON.parse(res.data));
+      response = JSON.parse(res.data);
+    })
+    .catch(err => {
+      //console.log(err);
+      response = JSON.parse(err.error);
+    });
+
+    return response;
   }
 
-  logOut() {
-    this.storage.remove('key').then(
-      val => {},
-      err => {}
+  async logOut(): Promise<boolean> {
+    let status: boolean;
+    await this.storage.remove('key').then(
+      val => { status = true },
+      err => { status = false }
       
     )
+
+    return status;
   
   }
 

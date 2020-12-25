@@ -51,6 +51,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "cordova-browser": "^6.0.0",
     "cordova-plugin-advanced-http": "^3.1.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.2",
@@ -91,7 +92,8 @@
       "cordova-plugin-advanced-http": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

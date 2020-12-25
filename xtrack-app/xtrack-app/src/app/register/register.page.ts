@@ -103,24 +103,33 @@ export class RegisterPage implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
 
-    console.log(this.user);
+    // console.log(this.user);
     this.authService.signUp(this.user)
     .then(res => {
 
+      
       // success
-      if(res[this.success] === true){
+      if(res[this.success]){
         
 
         this.openSnackBar('Sign Up successful!');
         this.router.navigate(['/login']);
        
-      } 
+      } else  {
+
+        if(res[this.message] !== undefined)
+          this.openSnackBar(res[this.message]);
+        else
+          this.openSnackBar('An error occurred. Try again!');
+          
+      }
     })
     .catch(
       err => {
         console.log(err);
         if(!err[this.success]){
-          this.openSnackBar(err[this.error][this.message]);
+          console.log("ERROR message", err[this.message]);
+          this.openSnackBar(err[this.message]);
         }else{
           this.openSnackBar('An error occurred. Try again!');
         }

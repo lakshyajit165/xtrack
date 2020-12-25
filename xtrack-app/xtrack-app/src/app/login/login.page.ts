@@ -91,19 +91,27 @@ export class LoginPage implements OnInit {
       console.log(res);
       // store the token in localstorage
       // console.log(res);
-      this.storage.setItem('key', res[this.accessToken])
-      .then(
-        () => {},
-        error => {}
-      );
+
+      if(res[this.accessToken]){
+          // navigate to home
+          this.storage.setItem('key', res[this.accessToken])
+          .then(
+            () => {},
+            error => {}
+          );
+
+          this.router.navigate(['/xtrack/menu/home']);
+          this.openSnackBar('Login successful!');
+      }else {
+        this.openSnackBar('Bad credentials!');
+      }
      
-      // navigate to home
-      this.router.navigate(['/xtrack/menu/home']);
-      this.openSnackBar('Login successful!');
+     
+    
 
     })
     .catch(err => {
-      this.openSnackBar('Bad credentials!');
+      
     })
 
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { NavController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -33,7 +34,8 @@ export class MenuPage implements OnInit {
   ]
 
   constructor(
-    private router: Router
+    private router: Router,
+    authService: AuthService
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
@@ -41,6 +43,7 @@ export class MenuPage implements OnInit {
     })
 
    
+    
    
   }
 

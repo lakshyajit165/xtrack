@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { Platform } from '@ionic/angular';
 import { payeeData } from '../providers/payeeData.provider';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +28,20 @@ export class HomePage implements OnInit {
     private router: Router,
     public platform: Platform,
     private qrScanner: QRScanner,
-    private payeeData: payeeData
+    private payeeData: payeeData,
+    private authService: AuthService
   ) { 
     // this.platform.backButton.subscribeWithPriority(0, () => {
     //   document.getElementsByTagName('body')[0].style.opacity = '1';
     //   this.scanSub.unsubscribe();
     // });
+    // this.authService.isLoggedIn().then(res => {
+    //   console.log(res);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // })
+    
   }
 
  
@@ -42,7 +51,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-
+   
   }
 
   routeFunction(path: string): void {
