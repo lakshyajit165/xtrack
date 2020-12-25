@@ -33,6 +33,12 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
+
+    // Server Test Route
+    @GetMapping("/test")
+    public String testRoute(){
+        return "Serve is Up!";
+    }
     // create a payment
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
