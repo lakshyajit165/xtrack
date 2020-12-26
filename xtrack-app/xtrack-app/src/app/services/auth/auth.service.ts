@@ -26,6 +26,8 @@ export class AuthService {
     await this.http.post(this.serviceRoute + 'v1/auth/signup', user, {})
     .then(res => {
       
+      // console.log(res);
+      // console.log(JSON.parse(res.data));
       response = JSON.parse(res.data);
      
 

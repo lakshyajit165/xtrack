@@ -103,11 +103,11 @@ export class RegisterPage implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
 
-    // console.log(this.user);
+    console.log(this.user);
     this.authService.signUp(this.user)
     .then(res => {
 
-      
+      // console.log(res);
       // success
       if(res[this.success]){
         
