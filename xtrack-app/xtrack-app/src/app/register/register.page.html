@@ -98,7 +98,12 @@
               </ion-row>
               <ion-row>
                 <ion-col class="register-btn">
-                  <ion-button type="submit" expand="block" color="primary" >Register</ion-button>
+                  <ion-button [disabled]="registerloading" type="submit" expand="block" color="primary" >
+                    <ion-spinner name="crescent" *ngIf="registerloading; else textDisplay"></ion-spinner>
+                    <ng-template #textDisplay> 
+                      Register
+                    </ng-template>
+                  </ion-button>
                 </ion-col>
               </ion-row>
           </form>

@@ -55,7 +55,13 @@
               </ion-row>
               <ion-row>
                 <ion-col class="login-btn">
-                  <ion-button type="submit" expand="block" color="primary" >Log In</ion-button>
+                  <ion-button type="submit" [disabled]="loginloading" expand="block" color="primary" >
+                    <ion-spinner name="crescent" *ngIf="loginloading; else textDisplay"></ion-spinner>
+                    <ng-template #textDisplay>
+                      Log In
+                    </ng-template>
+                    
+                  </ion-button>
                 </ion-col>
               </ion-row>
           </form>

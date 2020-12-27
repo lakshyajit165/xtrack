@@ -4,6 +4,13 @@ import { NavController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { AuthService } from '../services/auth/auth.service';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -13,6 +20,10 @@ export class MenuPage implements OnInit {
 
   activePath = '';
   public selectedIndex = 0;
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
 
   pages = [
    
@@ -35,7 +46,8 @@ export class MenuPage implements OnInit {
 
   constructor(
     private router: Router,
-    authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
@@ -59,6 +71,40 @@ export class MenuPage implements OnInit {
     //   });
     // }
    
+  }
+
+  logout(): void {
+    this.authService.logOut().then(res => {
+      if(res){
+        this.router.navigate(['login']);
+        this.openSnackBar('Logout successful!');
+
+      }else{
+        this.openSnackBar('Error logging out!');
+      }
+    })
+    .catch(err => {
+      this.openSnackBar('Error logging out!');
+    });
+
+  }
+
+  openSnackBar(msg: string) {
+    
+    // let theme = '';
+    // console.log(msg);
+    // this.themeService.isDarkTheme.subscribe(res => {
+    //   theme = 'light-theme';
+    // }, err => {
+    //   theme = 'dark-theme';
+    // });
+
+    this._snackBar.open(msg, 'Close', {
+     
+      duration: 5000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 
   

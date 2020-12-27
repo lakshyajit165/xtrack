@@ -48,6 +48,7 @@ export class RegisterPage implements OnInit {
   error: string = 'error';
   success: string = 'success';
   message: string = 'message';
+  registerloading: boolean = false;
   
   pageloading: boolean = true;
 
@@ -103,6 +104,8 @@ export class RegisterPage implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
 
+    this.registerloading = true;
+
     console.log(this.user);
     this.authService.signUp(this.user)
     .then(res => {
@@ -111,12 +114,13 @@ export class RegisterPage implements OnInit {
       // success
       if(res[this.success]){
         
-
+        this.registerloading = false;
         this.openSnackBar('Sign Up successful!');
         this.router.navigate(['/login']);
        
       } else  {
 
+        this.registerloading = false;
         if(res[this.message] !== undefined)
           this.openSnackBar(res[this.message]);
         else
@@ -128,10 +132,16 @@ export class RegisterPage implements OnInit {
       err => {
         console.log(err);
         if(!err[this.success]){
+
+          this.registerloading = false;
           console.log("ERROR message", err[this.message]);
           this.openSnackBar(err[this.message]);
+
         }else{
+
+          this.registerloading = false;
           this.openSnackBar('An error occurred. Try again!');
+          
         }
       }
     )

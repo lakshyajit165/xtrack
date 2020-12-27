@@ -40,6 +40,7 @@ export class LoginPage implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   accessToken: string = 'accessToken';
+  loginloading: boolean = false;
 
   constructor(
     private router: Router,
@@ -85,12 +86,14 @@ export class LoginPage implements OnInit {
 
     this.user.usernameOrEmail = this.loginform.value.usernameOrEmail;
     this.user.password = this.loginform.value.password;
-
+    this.loginloading = true;
+    
     this.authService.logIn(this.user)
     .then(res => {
       console.log(res);
       // store the token in localstorage
       // console.log(res);
+      
 
       if(res[this.accessToken]){
           // navigate to home
@@ -99,10 +102,11 @@ export class LoginPage implements OnInit {
             () => {},
             error => {}
           );
-
+          this.loginloading = false;
           this.router.navigate(['/xtrack/menu/home']);
           this.openSnackBar('Login successful!');
       }else {
+        this.loginloading = false;
         this.openSnackBar('Bad credentials!');
       }
      
@@ -111,7 +115,7 @@ export class LoginPage implements OnInit {
 
     })
     .catch(err => {
-      
+      this.loginloading = false;
     })
 
   }

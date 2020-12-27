@@ -26,14 +26,14 @@ export class AuthService {
     await this.http.post(this.serviceRoute + 'v1/auth/signup', user, {})
     .then(res => {
       
-      // console.log(res);
+      // console.log("INSIDE service:",res);
       // console.log(JSON.parse(res.data));
       response = JSON.parse(res.data);
      
 
     })
     .catch(err => {
-      // console.log("ERR", err);
+      // console.log("INSIDE service: ERR", err);
       response = JSON.parse(err.error);
       // console.log("ERR PARSED", response);
     });
