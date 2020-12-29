@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Location } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { PreviousrouteService } from './services/previousroute.service';
+import { loginStatus } from './providers/loginStatus.provider';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +32,9 @@ export class AppComponent implements OnInit{
     private location: Location,
     private _router: Router,
     private _previousRouteService: PreviousrouteService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private loginstatus: loginStatus,
+    private authService: AuthService
   ) {
     this.initializeApp();
 
@@ -65,12 +69,12 @@ export class AppComponent implements OnInit{
   backButtonEvent() {
     this.platform.backButton.subscribeWithPriority(999, () => {
       console.log('back btn clicked');
-      this.routerOutlets.forEach(async(outlet: IonRouterOutlet) => {
+      this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
         if (this._router.url != '/xtrack/menu/home') {
           // await this.router.navigate(['/']);
          // await this.location.back();
          this.routeFunction(this.previousPage);
-        } else if (this._router.url === '/xtrack/menu/home') {
+        } else if (this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
           if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
             this.lastTimeBackPress = new Date().getTime();
             this.presentAlertConfirm();
@@ -157,6 +161,24 @@ export class AppComponent implements OnInit{
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      this.authService.isLoggedIn().then(res => {
+        if(res) {
+          this.loginstatus.status = true;
+          
+          // route to home page if user is already logged in and trying to access login/register route
+          // console.log("user logged in! ", this.loginstatus.status);
+          if(this._router.url === "/login" || this._router.url === "/register")
+            this._router.navigate(["/xtrack/menu/home"]);
+        } else {
+          this.loginstatus.status = false;
+          console.log("user not logged in!");
+        }
+      })
+      .catch(err => {
+        this.loginstatus.status = false;
+      });
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

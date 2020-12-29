@@ -21,6 +21,9 @@ import { api } from './providers/api.provider';
 
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
+import { loginStatus } from './providers/loginStatus.provider';
+import { AuthGuard } from './services/auth/auth.guard';
+import { AuthRouteGuard } from './services/auth/authroute.guard';
 
 
 
@@ -42,6 +45,9 @@ import { HTTP } from '@ionic-native/http/ngx';
     NativeStorage,
     HTTP,
     api,
+    loginStatus,
+    AuthGuard,
+    AuthRouteGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],

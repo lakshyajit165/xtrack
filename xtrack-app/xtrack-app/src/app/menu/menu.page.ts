@@ -9,6 +9,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { loginStatus } from '../providers/loginStatus.provider';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class MenuPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
+    private loginstatus: loginStatus
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
@@ -76,6 +78,7 @@ export class MenuPage implements OnInit {
   logout(): void {
     this.authService.logOut().then(res => {
       if(res){
+        this.loginstatus.status = false;
         this.router.navigate(['login']);
         this.openSnackBar('Logout successful!');
 

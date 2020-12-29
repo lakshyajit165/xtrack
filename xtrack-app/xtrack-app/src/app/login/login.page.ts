@@ -11,6 +11,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { loginStatus } from '../providers/loginStatus.provider';
 
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -47,7 +48,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private storage: NativeStorage
+    private storage: NativeStorage,
+    private loginstatus: loginStatus
 
   ) {
 
@@ -87,7 +89,7 @@ export class LoginPage implements OnInit {
     this.user.usernameOrEmail = this.loginform.value.usernameOrEmail;
     this.user.password = this.loginform.value.password;
     this.loginloading = true;
-    
+
     this.authService.logIn(this.user)
     .then(res => {
       console.log(res);
@@ -102,6 +104,7 @@ export class LoginPage implements OnInit {
             () => {},
             error => {}
           );
+          this.loginstatus.status = true;
           this.loginloading = false;
           this.router.navigate(['/xtrack/menu/home']);
           this.openSnackBar('Login successful!');
