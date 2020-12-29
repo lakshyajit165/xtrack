@@ -17,7 +17,7 @@
               </ion-col>
           
           </ion-row>
-          <form [formGroup]="loginform" (ngSubmit)="loginSubmit()">
+          <form [formGroup]="loginform">
               <ion-row>
                 <ion-col>
                   <ion-item>
@@ -55,7 +55,7 @@
               </ion-row>
               <ion-row>
                 <ion-col class="login-btn">
-                  <ion-button type="submit" [disabled]="loginloading" expand="block" color="primary" >
+                  <ion-button type="button" [disabled]="loginloading" expand="block" color="primary" (click)="loginSubmit()">
                     <ion-spinner name="crescent" *ngIf="loginloading; else textDisplay"></ion-spinner>
                     <ng-template #textDisplay>
                       Log In

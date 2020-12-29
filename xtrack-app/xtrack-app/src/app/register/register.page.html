@@ -17,7 +17,7 @@
               </ion-col>
               
           </ion-row>
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="registerForm">
               <ion-row>
                 <ion-col>
                   <ion-item>
@@ -98,7 +98,7 @@
               </ion-row>
               <ion-row>
                 <ion-col class="register-btn">
-                  <ion-button [disabled]="registerloading" type="submit" expand="block" color="primary" >
+                  <ion-button [disabled]="registerloading" type="button" expand="block" color="primary" (click)="onSubmit()">
                     <ion-spinner name="crescent" *ngIf="registerloading; else textDisplay"></ion-spinner>
                     <ng-template #textDisplay> 
                       Register

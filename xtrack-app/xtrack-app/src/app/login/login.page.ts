@@ -104,6 +104,12 @@ export class LoginPage implements OnInit {
             () => {},
             error => {}
           );
+
+          // reset the form here
+          this.loginform.reset();
+          this.loginform.markAsPristine();
+          this.loginform.markAsUntouched();
+
           this.loginstatus.status = true;
           this.loginloading = false;
           this.router.navigate(['/xtrack/menu/home']);

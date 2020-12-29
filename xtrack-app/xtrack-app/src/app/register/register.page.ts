@@ -114,11 +114,17 @@ export class RegisterPage implements OnInit {
       // success
       if(res[this.success]){
         
+        // reset the form here
+        this.registerForm.reset();
+        this.registerForm.markAsPristine();
+        this.registerForm.markAsUntouched();
+
         this.registerloading = false;
         this.openSnackBar('Sign Up successful!');
         this.router.navigate(['/login']);
        
       } else  {
+
 
         this.registerloading = false;
         if(res[this.message] !== undefined)
@@ -133,11 +139,14 @@ export class RegisterPage implements OnInit {
         console.log(err);
         if(!err[this.success]){
 
+          
           this.registerloading = false;
           console.log("ERROR message", err[this.message]);
           this.openSnackBar(err[this.message]);
 
         }else{
+
+          
 
           this.registerloading = false;
           this.openSnackBar('An error occurred. Try again!');
