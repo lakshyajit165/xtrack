@@ -104,7 +104,12 @@ export class LoginPage implements OnInit {
             () => {},
             error => {}
           );
-
+          this.storage.setItem('user', this.user.usernameOrEmail)
+          .then(
+            () => {},
+            error => {}
+          );
+          
           // reset the form here
           this.loginform.reset();
           this.loginform.markAsPristine();

@@ -69,6 +69,11 @@ export class AuthService {
       
     )
 
+    await this.storage.remove('user').then(
+      val => {},
+      err => {}
+    ) 
+
     return status;
   
   }

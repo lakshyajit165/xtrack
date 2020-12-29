@@ -7,8 +7,8 @@
     </ion-header> -->
     <ion-content>
       <ion-list id="menu-list"> 
-        <ion-list-header>Hi There!</ion-list-header>
-          <ion-note>user@example.com</ion-note>
+        <ion-list-header class="menu-header">Hi There!</ion-list-header>
+          <ion-note *ngIf="this.currentUser !== undefined">{{ currentUser }}</ion-note>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages; let i = index">
           <ion-item (click)="selectedIndex = i" [routerLink]="page.path" routerDirection="root"  lines="none" [routerLinkActive]="['selected']">
             

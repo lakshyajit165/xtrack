@@ -10,6 +10,7 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { loginStatus } from '../providers/loginStatus.provider';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class MenuPage implements OnInit {
 
   activePath = '';
   public selectedIndex = 0;
+  currentUser: string;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -49,12 +51,21 @@ export class MenuPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private loginstatus: loginStatus
+    private loginstatus: loginStatus,
+    private storage: NativeStorage
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
      // console.log(this.activePath);
+    });
+
+    this.storage.getItem('user').then(val => {
+      console.log("Current User ", val);
+      this.currentUser = val;
     })
+    .catch(err => {
+
+    });
 
    
     
