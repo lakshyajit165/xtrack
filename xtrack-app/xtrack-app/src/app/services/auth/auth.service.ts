@@ -7,6 +7,7 @@ import { api } from 'src/app/providers/api.provider';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { HttpResponse } from '@angular/common/http';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class AuthService {
   constructor(
     private http: HTTP,
     private api: api,
-    private storage: NativeStorage
+    private storage: NativeStorage,
+
   ) { }
 
   async signUp(user: IUser): Promise<object> {
@@ -70,7 +72,10 @@ export class AuthService {
     )
 
     await this.storage.remove('user').then(
-      val => {},
+      val => { 
+        console.log(val, 'user removed from nativestorage');
+
+      },
       err => {}
     ) 
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { MenuController, NavController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
+
 import { AuthService } from '../services/auth/auth.service';
 
 import {
@@ -52,21 +53,16 @@ export class MenuPage implements OnInit {
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private loginstatus: loginStatus,
-    private storage: NativeStorage
+    private storage: NativeStorage,
+    private menuCtrl: MenuController
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.activePath = event.url;
      // console.log(this.activePath);
     });
 
-    this.storage.getItem('user').then(val => {
-      console.log("Current User ", val);
-      this.currentUser = val;
-    })
-    .catch(err => {
-
-    });
-
+    
+    console.log("menu page constructor called");
    
     
    
@@ -86,9 +82,22 @@ export class MenuPage implements OnInit {
    
   }
 
+  ionViewDidEnter() {
+    console.log("did enter fired!");
+
+    this.storage.getItem('user').then(val => {
+      console.log("Current User ", val);
+      this.currentUser = val;
+    })
+    .catch(err => {
+
+    });
+  }
+
   logout(): void {
     this.authService.logOut().then(res => {
       if(res){
+        this.menuCtrl.close();
         this.loginstatus.status = false;
         this.router.navigate(['login']);
         this.openSnackBar('Logout successful!');

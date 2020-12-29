@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class loginStatus {
 
     public status: boolean;
+    
 
     public constructor() { }
 
