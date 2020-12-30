@@ -30,7 +30,7 @@ export class QrscanPage implements OnInit {
     private payeeData: payeeData,
     private _snackBar: MatSnackBar,
   ) {
-    this.platform.backButton.subscribeWithPriority(9999, (processNextHandler) => {
+    this.platform.backButton.subscribeWithPriority(999, (processNextHandler) => {
      
 
       // route to home page / add expense page based on data availability
@@ -74,7 +74,7 @@ export class QrscanPage implements OnInit {
         if(barcodeData.cancelled){
 
           this.openSnackBar('Scan Failed!');
-          this.routeFunction('/xtrack/menu/home');
+          this.routeFunction('/qrscan');
 
         } else {
 
@@ -94,7 +94,7 @@ export class QrscanPage implements OnInit {
 
     }).catch(err => {
       this.openSnackBar('Scan Failed!');
-      this.routeFunction('/xtrack/menu/home');
+      this.routeFunction('/qrscan');
       console.log('Error', err);
     });
   }

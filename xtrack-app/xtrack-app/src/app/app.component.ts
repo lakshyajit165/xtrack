@@ -51,7 +51,26 @@ export class AppComponent implements OnInit{
       }
     });
 
-    this.backButtonEvent();
+    // this.backButtonEvent();
+
+    this.platform.backButton.subscribeWithPriority(999, () => {
+      console.log('back btn clicked');
+      this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+        if (this._router.url != '/xtrack/menu/home') {
+          // await this.router.navigate(['/']);
+         // await this.location.back();
+         this.routeFunction(this.previousPage);
+        } else if (this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
+          // if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
+          //   this.lastTimeBackPress = new Date().getTime();
+          //   this.presentAlertConfirm();
+          // } else {
+            console.log('hellooooooo');
+            navigator['app'].exitApp();
+          // }
+        }
+      });
+    });
 
    
     // this.platform.backButton.subscribeWithPriority(5, () => {
@@ -75,12 +94,13 @@ export class AppComponent implements OnInit{
          // await this.location.back();
          this.routeFunction(this.previousPage);
         } else if (this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
-          if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
-            this.lastTimeBackPress = new Date().getTime();
-            this.presentAlertConfirm();
-          } else {
+          // if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
+          //   this.lastTimeBackPress = new Date().getTime();
+          //   this.presentAlertConfirm();
+          // } else {
+            console.log('hellooooooo');
             navigator['app'].exitApp();
-          }
+          // }
         }
       });
     });
