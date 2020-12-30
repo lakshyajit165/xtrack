@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+
 import { Platform } from '@ionic/angular';
 import { payeeData } from '../providers/payeeData.provider';
 import { AuthService } from '../services/auth/auth.service';
@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     public platform: Platform,
-    private qrScanner: QRScanner,
+
     private payeeData: payeeData,
     private authService: AuthService
   ) { 
