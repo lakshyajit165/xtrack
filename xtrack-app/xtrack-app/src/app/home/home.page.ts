@@ -8,6 +8,8 @@ import { PaymentService } from '../services/payment/payment.service';
 
 import { IPaymentResponse } from '../model/IPaymentResponse';
 
+import {MatTableDataSource} from '@angular/material/table';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -24,7 +26,10 @@ export class HomePage implements OnInit {
 
   paymentFetchError: boolean = false;
 
-  myPayments: IPaymentResponse[];
+  myPayments: IPaymentResponse[] = [];
+
+  displayedColumns: string[] = ['amount', 'category', 'createdAt', 'details'];
+  dataSource = new MatTableDataSource<IPaymentResponse>(this.myPayments);
 
   constructor(
     private router: Router,
@@ -48,6 +53,7 @@ export class HomePage implements OnInit {
     .then(res => {
       console.log(res);
       this.myPayments = res['content'];
+      this.dataSource = new MatTableDataSource<IPaymentResponse>(this.myPayments);
       console.log(this.myPayments);
     })
     .catch(err => {
@@ -69,6 +75,10 @@ export class HomePage implements OnInit {
 
   routeFunction(path: string): void {
     this.router.navigate([path]);
+  }
+
+  paymentDetails(id: number){
+    console.log(id);
   }
 
   // getParamsFromUPIString(params: string, url: string): string {
