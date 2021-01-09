@@ -19,7 +19,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Amount</ion-label>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="amount"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -37,7 +37,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Description</ion-label>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="description"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -46,7 +46,7 @@
         <ion-col>
           <ion-item class="category">
             <ion-label>Category</ion-label>
-            <ion-select interface="action-sheet">
+            <ion-select interface="action-sheet" [(ngModel)]="category">
               <ion-select-option value="Food">Food</ion-select-option>
               <ion-select-option value="Recharge">Recharge</ion-select-option>
               <ion-select-option value="Shopping">Shopping</ion-select-option>
@@ -57,7 +57,7 @@
 
       <ion-row>
         <ion-col class="create-expense">
-          <ion-button expand="block" color="primary" >Create</ion-button>
+          <ion-button expand="block" color="primary" (click)="makePayment()">Create</ion-button>
         </ion-col>
         
       </ion-row>

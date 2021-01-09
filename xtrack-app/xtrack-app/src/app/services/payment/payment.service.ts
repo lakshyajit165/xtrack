@@ -39,7 +39,7 @@ export class PaymentService {
       
     })
 
-    await this.http.post(this.serviceRoute + 'api/v1/payments/create', payment, headers)
+    await this.http.post(this.serviceRoute + 'v1/payments/create', payment, headers)
     .then(res => {
       response = JSON.parse(res.data);
     })
@@ -73,7 +73,7 @@ export class PaymentService {
     let response: object;
     this.http.setDataSerializer('json');
 
-    await this.http.patch(this.serviceRoute + 'api/v1/payments/mypayments/'+id, payment, headers)
+    await this.http.patch(this.serviceRoute + 'v1/payments/mypayments/'+id, payment, headers)
     .then(res => {
       response = JSON.parse(res.data);
     })
@@ -105,7 +105,7 @@ export class PaymentService {
     let response: object;
     this.http.setDataSerializer('json');
 
-    await this.http.delete(this.serviceRoute + 'api/v1/payments/'+id, id, headers)
+    await this.http.delete(this.serviceRoute + 'v1/payments/'+id, id, headers)
     .then(res => {
       response = JSON.parse(res.data);
     })
@@ -117,5 +117,36 @@ export class PaymentService {
 
   }
 
+  // get my payments (pass page and size)
+  async getMyPayments(page: number, size: number): Promise<object> {
+
+    let headers = {};
+    // set the headers
+    await this.storage.getItem('key')
+    .then(res => {
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+res
+      };
+    })
+    .catch(err => {
+
+      
+    })
+
+    let response: object;
+    this.http.setDataSerializer('json');
+
+    await this.http.get(this.serviceRoute + 'v1/payments/mypayments?page=' + page + '&size=' + size, {}, headers)
+    .then(res => {
+      response = JSON.parse(res.data);
+    })
+    .catch(err => {
+      response = JSON.parse(err.error);
+    })
+
+    return response;
+
+  }
 
 }

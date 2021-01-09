@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { payeeData } from '../providers/payeeData.provider';
 import { AuthService } from '../services/auth/auth.service';
+import { PaymentService } from '../services/payment/payment.service';
+
+import { IPaymentResponse } from '../model/IPaymentResponse';
 
 @Component({
   selector: 'app-home',
@@ -12,24 +15,24 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class HomePage implements OnInit {
 
-  scanSub: any;
 
   startdate="2020-10-10";
   enddate="2020-11-10";
 
+  currentPage: number = 0;
+  currentSize: number = 5;
 
-  // qr scan
-  encodedData = '';
-  QRSCANNED_DATA: string;
-  isOn = false;
-  scannedData: {};
+  paymentFetchError: boolean = false;
+
+  myPayments: IPaymentResponse[];
 
   constructor(
     private router: Router,
     public platform: Platform,
 
     private payeeData: payeeData,
-    private authService: AuthService
+    private authService: AuthService,
+    private paymentService: PaymentService
   ) { 
     // this.platform.backButton.subscribeWithPriority(0, () => {
     //   document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -41,6 +44,16 @@ export class HomePage implements OnInit {
     // .catch(err => {
     //   console.log(err);
     // })
+    this.paymentService.getMyPayments(this.currentPage, this.currentSize)
+    .then(res => {
+      console.log(res);
+      this.myPayments = res['content'];
+      console.log(this.myPayments);
+    })
+    .catch(err => {
+
+      this.paymentFetchError = true;
+    })
     
   }
 
