@@ -2,10 +2,10 @@
 
 set -f
 
-server=${{ secrets.PROD_SERVER }}
+server=$PROD_SERVER
 
-mysql_password=${{ secrets.MYSQL_ROOT_PASSWORD }} 
-mysql_db=${{ secrets.MYSQL_DB }} 
+mysql_password=$MYSQL_ROOT_PASSWORD 
+mysql_db=$MYSQL_DB 
 
 
 echo 'Starting to Deploy...'
