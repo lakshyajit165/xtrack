@@ -2,6 +2,7 @@ version: '3.7'
 services:
 
   xtrack-server:
+    image: xtrack-server
     build:
       context: ./xtrack-server
       dockerfile: Dockerfile
@@ -17,8 +18,8 @@ services:
     image: mysql:8
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=xtrackdb
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     container_name: xtrackdb
     network_mode: host
     hostname: localhost
