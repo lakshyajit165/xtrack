@@ -29,7 +29,12 @@ jobs:
           
 
       - name: Restart the application with new docker images
-        run: ssh staging 'echo ${{ secrets.MYSQL_ROOT_PASSWORD }} && cd xtrack && git pull origin stage && chmod 777 deploy.sh && ./deploy.sh' 
+        run: ssh staging "export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+             && export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
+             && cd xtrack \
+             && git pull origin stage \
+             && chmod 777 deploy.sh \
+             && ./deploy.sh"
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
