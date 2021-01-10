@@ -9,11 +9,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
     - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_KEY }}
-        name: id_rsa
-        known_hosts: ${{ secrets.PROD_SERVER }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_KEY" > ../private.key
+        sudo chmod 600 ../private.key
+        echo "$SSH_KEY" > ~/.ssh/known_hosts
+      shell: bash
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.SSH_KEY}}
+        SSH_KNOWN_HOSTS: ${{secrets.PROD_SERVER}}
+
     - name: deploy over ssh
-      run: chmod 777 ./ssh_to_server.sh && export PROD_SERVER=${{ secrets.PROD_SERVER }} && export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} && export MYSQL_DB=${{ secrets.MYSQL_DATABASE }} && ./ssh_to_server.sh
+      run: chmod 777 ./ssh_to_server.sh && export PROD_SERVER=${{ secrets.PROD_SERVER }} && export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} && export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} && ./ssh_to_server.sh
