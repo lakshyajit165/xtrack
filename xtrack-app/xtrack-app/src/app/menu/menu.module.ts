@@ -26,6 +26,10 @@ const routes: Routes = [
       {
         path: 'add-expense',
         loadChildren: '../add-expense/add-expense.module#AddExpensePageModule'
+      },
+      {
+        path: 'payment-details/:id',
+        loadChildren: () => import('../payment-details/payment-details.module').then( m => m.PaymentDetailsPageModule)
       }
     ]
   }

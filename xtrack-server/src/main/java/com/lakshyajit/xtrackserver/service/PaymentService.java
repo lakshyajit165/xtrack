@@ -159,6 +159,28 @@ public class PaymentService {
         }
     }
 
+    // get payment by id
+    public PaymentResponse getPaymentById(Long id) {
+        Optional<Payment> payment = paymentRepository.findById(id);
+
+        if(payment.isPresent()){
+            PaymentResponse paymentResponse = new PaymentResponse(
+                    payment.get().getId(),
+                    payment.get().getAmount(),
+                    payment.get().getPayee(),
+                    payment.get().getPayer(),
+                    payment.get().getDescription(),
+                    payment.get().getCategory(),
+                    payment.get().getCreatedAt(),
+                    payment.get().getUpdatedAt()
+            );
+            return paymentResponse;
+        }else{
+            throw new ResourceNotFoundException("Note", "ID", id);
+        }
+
+    }
+
     private void validatePageNumberAndSize(int page, int size) {
 
         if(page < 0){

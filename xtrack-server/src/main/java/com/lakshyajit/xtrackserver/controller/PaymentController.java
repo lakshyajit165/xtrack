@@ -79,6 +79,27 @@ public class PaymentController {
         return paymentService.getPaymentsByUserByDate(currentUser, page, size, from, to);
     }
 
+    // get payment by id
+    @GetMapping("/mypayments/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getPaymentById(
+            @PathVariable Long id
+    ) {
+
+        try {
+            PaymentResponse payment = paymentService.getPaymentById(id);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(payment.getId()).toUri();
+
+            return ResponseEntity.created(location)
+                    .body(payment);
+        }catch (ResourceNotFoundException e) {
+
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Error fetching payment details!"));
+        }
+    }
     // edit payment(only desc and category are editable
     @PatchMapping("mypayments/{id}")
     @PreAuthorize("hasRole('USER')")

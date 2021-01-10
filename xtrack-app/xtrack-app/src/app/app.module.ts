@@ -24,6 +24,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { loginStatus } from './providers/loginStatus.provider';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthRouteGuard } from './services/auth/authroute.guard';
+import { paymentdetails } from './providers/paymentdetails.provider';
 
 
 
@@ -45,6 +46,7 @@ import { AuthRouteGuard } from './services/auth/authroute.guard';
     NativeStorage,
     HTTP,
     api,
+    paymentdetails,
     loginStatus,
     AuthGuard,
     AuthRouteGuard,
