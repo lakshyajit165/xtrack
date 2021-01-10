@@ -28,7 +28,7 @@ jobs:
           PROD_SERVER: ${{ secrets.PROD_SERVER }}
 
       - name: Stop the application
-        run: ssh staging 'docker-compose down'
+        run: ssh staging 'cd xtrack && docker-compose down'
 
       # - name: Check out the source
       #   run: ssh staging 'cd my-application && git fetch && git reset --hard origin/master'
