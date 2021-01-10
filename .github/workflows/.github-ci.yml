@@ -16,4 +16,4 @@ jobs:
         name: id_rsa
         known_hosts: ${{ secrets.PROD_SERVER }}
     - name: deploy over ssh
-      run: chmod 777 ./ssh_to_server.sh && export PROD_SERVER=${{ secrets.PROD_SERVER }} && export MYSQL_ROOT_PASSWORD=${{ MYSQL_ROOT_PASSWORD }} && export MYSQL_DB=${{ MYSQL_DB }} && ./ssh_to_server.sh
+      run: chmod 777 ./ssh_to_server.sh && export PROD_SERVER=${{ secrets.PROD_SERVER }} && export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} && export MYSQL_DB=${{ secrets.MYSQL_DB }} && ./ssh_to_server.sh
