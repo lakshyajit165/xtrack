@@ -10,6 +10,12 @@ mysql_db=$MYSQL_DB
 
 echo 'Starting to Deploy...'
 
+echo $server
+
+echo $mysql_password
+
+echo $mysql_db
+
 # ssh and set the environment variables, and finally run the deployment script
 ssh ubuntu@$server "cd xtrack-app \
     && export MYSQL_ROOT_PASSWORD=$mysql_password \
