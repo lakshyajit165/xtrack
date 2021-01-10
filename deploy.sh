@@ -8,6 +8,7 @@ images_count=$(docker images | grep . -c)
 
 image_names=$(docker images | awk '{print $1}')
 
+echo 'Test env here: $MYSQL_DATABASE';
 
 
 

@@ -28,11 +28,8 @@ jobs:
           PROD_SERVER: ${{ secrets.PROD_SERVER }}
           
 
-      - name: Set ENV Variables
-        run: ssh staging 'export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} && export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}'
-
-      - name: Stop the application
-        run: ssh staging 'export MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD && export MYSQL_DATABASE=$MYSQL_DATABASE && cd xtrack && git pull origin stage && chmod 777 deploy.sh && ./deploy.sh' 
+      - name: Restart the application with new docker images
+        run: ssh staging 'export ENV=test && cd xtrack && git pull origin stage && chmod 777 deploy.sh && ./deploy.sh' 
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
