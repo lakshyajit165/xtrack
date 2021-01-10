@@ -4,22 +4,62 @@ on:
     branches:
       - stage
 jobs:
-  ci:
+  deploy:
+    name: "Deploy to staging"
     runs-on: ubuntu-latest
+    # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # needs: test
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $PROD_SERVER
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          PROD_SERVER: ${{ secrets.PROD_SERVER }}
 
-    - name: Install SSH key
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$SSH_KEY" > ../private.key
-        sudo chmod 600 ../private.key
-        echo "$SSH_KEY" > ~/.ssh/known_hosts
-      shell: bash
-      env:
-        SSH_PRIVATE_KEY: ${{secrets.SSH_KEY}}
-        SSH_KNOWN_HOSTS: ${{secrets.PROD_SERVER}}
+      - name: Stop the application
+        run: ssh staging 'docker-compose down'
 
-    - name: deploy over ssh
-      run: chmod 777 ./ssh_to_server.sh && export PROD_SERVER=${{ secrets.PROD_SERVER }} && export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} && export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} && ./ssh_to_server.sh
+      # - name: Check out the source
+      #   run: ssh staging 'cd my-application && git fetch && git reset --hard origin/master'
+
+      # - name: Start the server
+      #   if: ${{ always() }}
+      #   run: ssh staging 'sudo systemctl start my-application'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
