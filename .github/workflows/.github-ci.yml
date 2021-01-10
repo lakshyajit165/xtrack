@@ -16,4 +16,4 @@ jobs:
         name: id_rsa
         known_hosts: ${{ secrets.PROD_SERVER }}
     - name: deploy over ssh
-      run: chmod 777 ../ssh_to_server && ../ssh_to_server.sh
+      run: chmod 777 ./ssh_to_server.sh && ./ssh_to_server.sh
