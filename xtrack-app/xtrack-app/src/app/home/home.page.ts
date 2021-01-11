@@ -25,6 +25,7 @@ export class HomePage implements OnInit {
   currentSize: number = 5;
 
   paymentFetchError: boolean = false;
+  paymentdetailsloading: boolean = false;
 
   myPayments: IPaymentResponse[] = [];
 
@@ -49,17 +50,7 @@ export class HomePage implements OnInit {
     // .catch(err => {
     //   console.log(err);
     // })
-    this.paymentService.getMyPayments(this.currentPage, this.currentSize)
-    .then(res => {
-      console.log(res);
-      this.myPayments = res['content'];
-      this.dataSource = new MatTableDataSource<IPaymentResponse>(this.myPayments);
-      console.log(this.myPayments);
-    })
-    .catch(err => {
-
-      this.paymentFetchError = true;
-    })
+    
     
   }
 
@@ -70,7 +61,24 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-   
+   console.log("home page ngoninit!");
+
+   this.paymentdetailsloading = true;
+
+   this.paymentService.getMyPayments(this.currentPage, this.currentSize)
+    .then(res => {
+      console.log(res);
+      this.myPayments = res['content'];
+      this.dataSource = new MatTableDataSource<IPaymentResponse>(this.myPayments);
+      console.log(this.myPayments);
+      this.paymentdetailsloading = false;
+    })
+
+    .catch(err => {
+
+      this.paymentdetailsloading = false;
+      this.paymentFetchError = true;
+    })
   }
 
   routeFunction(path: string): void {
@@ -78,7 +86,7 @@ export class HomePage implements OnInit {
   }
 
   paymentDetails(id: number){
-    console.log(id);
+    this.routeFunction('/xtrack/menu/payment-details/'+id);
   }
 
   // getParamsFromUPIString(params: string, url: string): string {

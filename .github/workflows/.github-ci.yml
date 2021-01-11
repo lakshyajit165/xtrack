@@ -36,9 +36,7 @@ jobs:
              && git pull origin stage \
              && chmod 777 deploy.sh \
              && ./deploy.sh'
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+       
 
 
 

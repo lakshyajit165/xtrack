@@ -32,42 +32,54 @@
             </ion-col>
         </ion-row>
         
+        <div class="payment-loading" *ngIf="this.paymentdetailsloading; else paymentDetailsBlock">
+            <ion-spinner name="crescent" class="pageload-spinner"></ion-spinner>
+        </div>
 
-        <table mat-table [dataSource]="dataSource">
+        <ng-template #paymentDetailsBlock>
 
-            <!-- Action column -->
-            <ng-container matColumnDef="details">
-                <th mat-header-cell *matHeaderCellDef> Details </th>
-                <td mat-cell *matCellDef="let element" (click)="paymentDetails(element.id)" id="details"> <ion-icon name="chevron-forward-outline"></ion-icon>  </td>
-            </ng-container>
+                <table mat-table [dataSource]="dataSource" *ngIf="!paymentFetchError; else paymentFetchErrorBlock">
 
-            <!-- Amount Column -->
-            <ng-container matColumnDef="amount">
-              <th mat-header-cell *matHeaderCellDef> Amount </th>
-              <td mat-cell *matCellDef="let element"> {{element.amount | currency:"INR":"symbol" }} </td>
-            </ng-container>
-        
-            <!-- Category Column -->
-            <ng-container matColumnDef="category">
-              <th mat-header-cell *matHeaderCellDef> Category </th>
-              <td mat-cell *matCellDef="let element"> {{element.category}} </td>
-            </ng-container>
-        
-            <!-- CreatedAt Column -->
-            <ng-container matColumnDef="createdAt">
-              <th mat-header-cell *matHeaderCellDef> Created At</th>
-              <td mat-cell *matCellDef="let element"> {{element.createdAt | date }} </td>
-            </ng-container>
-        
-            <!-- Description Column -->
-            <!-- <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef> Description </th>
-              <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-            </ng-container> -->
+                    <!-- Action column -->
+                    <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef> Details </th>
+                        <td mat-cell *matCellDef="let element" (click)="paymentDetails(element.id)" id="details"> <ion-icon name="chevron-forward-outline"></ion-icon>  </td>
+                    </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+                    <!-- Amount Column -->
+                    <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Amount </th>
+                    <td mat-cell *matCellDef="let element"> {{element.amount | currency:"INR":"symbol" }} </td>
+                    </ng-container>
+                
+                    <!-- Category Column -->
+                    <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef> Category </th>
+                    <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                    </ng-container>
+                
+                    <!-- CreatedAt Column -->
+                    <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef> Created At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.createdAt | date }} </td>
+                    </ng-container>
+                
+                    <!-- Description Column -->
+                    <!-- <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Description </th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                    </ng-container> -->
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <ng-template #paymentFetchErrorBlock>
+                    <div class="paymentdisperr">
+                        <p>Couldn't fetch payment details! :(</p>
+                    </div>
+                </ng-template>
+        </ng-template>
             
             <!-- <ion-list>
                 <ion-radio-group (ionChange)="chartType($event)">

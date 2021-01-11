@@ -25,7 +25,7 @@ export class PaymentDetailsPage implements OnInit {
     private router: Router
   ) { 
     this.id = +this.activatedRoute.snapshot.paramMap.get('id');
-    
+    console.log(this.id);
     
   }
 
