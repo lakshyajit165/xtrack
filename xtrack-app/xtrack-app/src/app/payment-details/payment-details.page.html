@@ -7,6 +7,49 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p>Payment details works!</p>
+<ion-content padding>
+  <!-- <p>Payment details works!</p> -->
+  <ion-grid>
+   
+    
+    <ion-row class="row header">
+      <ion-col>
+          <h5 ion-text class="home-header"><ion-icon name="card-outline"></ion-icon>Amount:</h5>
+          <p> {{ amount | currency:"INR":"symbol" }}</p>
+      </ion-col>
+      <ion-col>
+        <h5 ion-text class="home-header"><ion-icon name="pricetags-outline"></ion-icon>Category:</h5>
+        <p> {{ category }} </p>
+    </ion-col>
+    </ion-row>
+    <ion-row class="row">
+      <div class="details">
+          <h5 ion-text class="home-header"><ion-icon name="reader-outline"></ion-icon>Description:</h5>
+          <p> {{ description }} </p>
+      
+        <h5 ion-text class="home-header"><ion-icon name="happy-outline"></ion-icon>Payee:</h5>
+        <p> {{ payee }} </p>
+      
+        <h5 ion-text class="home-header"><ion-icon name="person-outline"></ion-icon>Payer:</h5>
+        <p> {{ payer }} </p>
+     
+        <h5 ion-text class="home-header"><ion-icon name="pricetags-outline"></ion-icon>Last Udpated:</h5>
+        <p> {{ updatedAt | date:'medium' }} </p>
+      </div>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="button" expand="block">
+          Edit
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button type="button" expand="block">
+          Delete
+        </ion-button>
+      </ion-col>
+    </ion-row>
+   
+  </ion-grid>
 </ion-content>

@@ -117,7 +117,7 @@ export class PaymentService {
 
   }
 
-  // get my payments (pass page and size)
+  // get my payments (pass page and size) - WITHOUT DATE FILTERS
   async getMyPayments(page: number, size: number): Promise<object> {
 
     let headers = {};
@@ -147,6 +147,37 @@ export class PaymentService {
 
     return response;
 
+  }
+
+  // get payment by id:
+  async getPaymentById(id: number): Promise<object> {
+
+    let headers = {};
+    // set the headers
+    await this.storage.getItem('key')
+    .then(res => {
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+res
+      };
+    })
+    .catch(err => {
+
+      
+    })
+
+    let response: object;
+    this.http.setDataSerializer('json');
+
+    await this.http.get(this.serviceRoute + 'v1/payments/mypayments/'+id, {}, headers)
+    .then(res => {
+      response = JSON.parse(res.data);
+    })
+    .catch(err => {
+      response = JSON.parse(err.error);
+    })
+
+    return response;
   }
 
 }

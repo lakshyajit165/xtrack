@@ -43,7 +43,7 @@
                     <!-- Action column -->
                     <ng-container matColumnDef="details">
                         <th mat-header-cell *matHeaderCellDef> Details </th>
-                        <td mat-cell *matCellDef="let element" (click)="paymentDetails(element.id)" id="details"> <ion-icon name="chevron-forward-outline"></ion-icon>  </td>
+                        <td mat-cell *matCellDef="let element" (click)="gotoPaymentDetails(element.id)" id="details"> <ion-icon name="chevron-forward-outline"></ion-icon>  </td>
                     </ng-container>
 
                     <!-- Amount Column -->

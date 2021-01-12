@@ -9,6 +9,7 @@ import { PaymentService } from '../services/payment/payment.service';
 import { IPaymentResponse } from '../model/IPaymentResponse';
 
 import {MatTableDataSource} from '@angular/material/table';
+import { paymentdetails } from '../providers/paymentdetails.provider';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ export class HomePage implements OnInit {
 
     private payeeData: payeeData,
     private authService: AuthService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private paymentdetails: paymentdetails
   ) { 
     // this.platform.backButton.subscribeWithPriority(0, () => {
     //   document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -85,8 +87,26 @@ export class HomePage implements OnInit {
     this.router.navigate([path]);
   }
 
-  paymentDetails(id: number){
+  gotoPaymentDetails(id: number){
+
+    this.setPaymentDetailsInProvider(id);
+    
     this.routeFunction('/xtrack/menu/payment-details/'+id);
+  }
+
+  setPaymentDetailsInProvider(id: number) {
+   
+    let payment = this.myPayments.filter(ele => ele.id === id);
+
+    this.paymentdetails.payment.id = payment[0].id;
+    this.paymentdetails.payment.amount = payment[0].amount;
+    this.paymentdetails.payment.category = payment[0].category;
+    this.paymentdetails.payment.description = payment[0].description;
+    this.paymentdetails.payment.payee = payment[0].payee;
+    this.paymentdetails.payment.payer = payment[0].payer;
+    this.paymentdetails.payment.createdAt = payment[0].createdAt;
+    this.paymentdetails.payment.updatedAt = payment[0].updatedAt;
+    
   }
 
   // getParamsFromUPIString(params: string, url: string): string {
