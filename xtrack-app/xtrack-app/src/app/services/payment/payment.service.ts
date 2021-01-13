@@ -120,8 +120,13 @@ export class PaymentService {
   // get my payments (pass page and size) - WITHOUT DATE FILTERS
   async getMyPayments(page: number, size: number): Promise<object> {
 
+    console.log("MY PAYMENTS called!");
+
     let headers = {};
     // set the headers
+    let response: object;
+    this.http.setDataSerializer('json');
+
     await this.storage.getItem('key')
     .then(res => {
       headers = {
@@ -134,9 +139,7 @@ export class PaymentService {
       
     })
 
-    let response: object;
-    this.http.setDataSerializer('json');
-
+    console.log("DISPLAYING headers  from service: ", headers);
     await this.http.get(this.serviceRoute + 'v1/payments/mypayments?page=' + page + '&size=' + size, {}, headers)
     .then(res => {
       response = JSON.parse(res.data);
@@ -144,6 +147,10 @@ export class PaymentService {
     .catch(err => {
       response = JSON.parse(err.error);
     })
+
+  
+
+   
 
     return response;
 

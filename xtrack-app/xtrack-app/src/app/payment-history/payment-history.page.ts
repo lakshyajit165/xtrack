@@ -1,23 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Platform } from '@ionic/angular';
-import { payeeData } from '../providers/payeeData.provider';
+import { IPaymentResponse } from '../model/IPaymentResponse';
 import { AuthService } from '../services/auth/auth.service';
 import { PaymentService } from '../services/payment/payment.service';
-
-import { IPaymentResponse } from '../model/IPaymentResponse';
-
-import {MatTableDataSource} from '@angular/material/table';
 import { paymentdetails } from '../providers/paymentdetails.provider';
 
-@Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-})
-export class HomePage implements OnInit {
 
+@Component({
+  selector: 'app-payment-history',
+  templateUrl: './payment-history.page.html',
+  styleUrls: ['./payment-history.page.scss'],
+})
+export class PaymentHistoryPage implements OnInit {
 
   startdate="2020-10-10";
   enddate="2020-11-10";
@@ -30,53 +25,16 @@ export class HomePage implements OnInit {
 
   myPayments: IPaymentResponse[] = [];
 
-
+  
   constructor(
     private router: Router,
     public platform: Platform,
     private authService: AuthService,
     private paymentService: PaymentService,
     private paymentdetails: paymentdetails
-  ) { 
-    // this.platform.backButton.subscribeWithPriority(0, () => {
-    //   document.getElementsByTagName('body')[0].style.opacity = '1';
-    //   this.scanSub.unsubscribe();
-    // });
-    // this.authService.isLoggedIn().then(res => {
-    //   console.log(res);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // })
+  ) { }
 
-    console.log("HOME COMPONENT constructor!");
-
-
-
-   
-    
-  }
-
- 
-
-  chartType(event: any) {
-    console.log(event.detail.value);
-  }
-
-  ngOnInit(): void {
-   console.log("home page ngoninit!");
-
-   // ngOnInit - Initialize your component and load data from services that don't need refreshing on each subsequent visit.
-    
-    this.getPaymentDetails();
-  }
-
-  
-  ionViewDidEnter(): void {
-    
-    // check if ngOninitalready called, no need to call again
-  
-      this.getPaymentDetails();
+  ngOnInit() {
   }
 
   routeFunction(path: string): void {
@@ -84,6 +42,13 @@ export class HomePage implements OnInit {
     this.router.navigate([path]);
   }
 
+  ionViewDidEnter(): void {
+    
+    // check if ngOninitalready called, no need to call again
+  
+      this.getPaymentDetails();
+  }
+  
   getPaymentDetails(): void {
     this.paymentdetailsloading = true;
 
@@ -124,15 +89,5 @@ export class HomePage implements OnInit {
     this.paymentdetails.payment.updatedAt = payment[0].updatedAt;
     
   }
-
-
-  // getParamsFromUPIString(params: string, url: string): string {
-
-  //   let href = url;
-  //   let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
-  //   let queryString = reg.exec(href);
-  //   return queryString ? queryString[1] : null;
-
-  // }
 
 }

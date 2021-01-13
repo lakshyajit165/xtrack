@@ -17,7 +17,8 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: '../home/home.module#HomePageModule'
+        // loadChildren: '../home/home.module#HomePageModule'
+        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
       },
       {
         path: 'about',
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'payment-details/:id',
         loadChildren: () => import('../payment-details/payment-details.module').then( m => m.PaymentDetailsPageModule)
+      },
+      {
+        path: 'payment-history',
+        loadChildren: () => import('../payment-history/payment-history.module').then(m => m.PaymentHistoryPageModule)
       }
     ]
   }

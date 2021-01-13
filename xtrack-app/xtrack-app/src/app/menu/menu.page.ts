@@ -28,7 +28,6 @@ export class MenuPage implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-
   pages = [
    
     {
@@ -45,6 +44,11 @@ export class MenuPage implements OnInit {
       name: 'Add Expense',
       path: '/xtrack/menu/add-expense',
       icon: 'add-circle'
+    },
+    {
+      name: 'History',
+      path: '/xtrack/menu/payment-history',
+      icon: 'swap-vertical'
     }
   ]
 
@@ -92,6 +96,8 @@ export class MenuPage implements OnInit {
     .catch(err => {
 
     });
+
+    // fetch current users data and store it in provider
   }
 
   logout(): void {

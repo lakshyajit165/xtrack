@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {Validators, FormBuilder, FormGroup, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -49,7 +49,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private storage: NativeStorage,
-    private loginstatus: loginStatus
+    private loginstatus: loginStatus,
+    private ngZone: NgZone
 
   ) {
 
@@ -120,8 +121,12 @@ export class LoginPage implements OnInit {
           
           this.loginstatus.status = true;
           this.loginloading = false;
-          this.router.navigate(['/xtrack/menu/home']);
-          this.openSnackBar('Login successful!');
+
+        
+            this.router.navigateByUrl('/xtrack/menu/home');
+            this.openSnackBar('Login successful!');
+          
+         
       }else {
         this.loginloading = false;
         this.openSnackBar('Bad credentials!');
