@@ -30,19 +30,19 @@ export class QrscanPage implements OnInit {
     private payeeData: payeeData,
     private _snackBar: MatSnackBar,
   ) {
-    this.platform.backButton.subscribeWithPriority(999, (processNextHandler) => {
+    // this.platform.backButton.subscribeWithPriority(999, (processNextHandler) => {
      
 
-      // route to home page / add expense page based on data availability
-      if(this.payeeData.payeedata !== undefined)
-        // route to add payment page
-        this.routeFunction('/xtrack/menu/add-expense');
-      else
-        // route to home page
-        this.routeFunction('/xtrack/menu/home');
+    //   // route to home page / add expense page based on data availability
+    //   if(this.payeeData.payeedata !== undefined)
+    //     // route to add payment page
+    //     this.routeFunction('/xtrack/menu/add-expense');
+    //   else
+    //     // route to home page
+    //     this.routeFunction('/xtrack/menu/home');
 
-      processNextHandler();
-    });
+    //   processNextHandler();
+    // });
     this.scan();
    }
 

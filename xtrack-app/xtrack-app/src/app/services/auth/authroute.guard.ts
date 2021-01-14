@@ -3,7 +3,6 @@ import { CanActivate, ActivatedRouteSnapshot, Router,  RouterStateSnapshot,
     CanActivateChild } from '@angular/router';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { loginStatus } from 'src/app/providers/loginStatus.provider';
-import { PreviousrouteService } from '../previousroute.service';
 import { AuthService } from './auth.service';
 
 
@@ -15,7 +14,6 @@ export class AuthRouteGuard implements CanActivate {
       private authService: AuthService, 
       private router: Router,
       private loginstatus: loginStatus,
-      private previousRoute: PreviousrouteService,
       private storage: NativeStorage
   ) {
 
