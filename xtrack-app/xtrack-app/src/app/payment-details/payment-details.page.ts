@@ -12,6 +12,7 @@ import { PaymentService } from '../services/payment/payment.service';
 export class PaymentDetailsPage implements OnInit {
 
   id: number;
+  displayedId: string = 'XT240920';
   amount: number = 0;
   category: string = '';
   createdAt: string = '';
@@ -32,8 +33,8 @@ export class PaymentDetailsPage implements OnInit {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id');
     console.log(this.id);
 
-    
-   
+    this.displayedId += this.id.toString();
+    console.log("Displayed ID: ", this.displayedId);
     
   }
 
@@ -48,6 +49,7 @@ export class PaymentDetailsPage implements OnInit {
       .then(res => {
         
         this.id = res['id'];
+        
         this.amount = res['amount'];
         this.category = res['category'];
         this.createdAt = res['createdAt'];
@@ -57,6 +59,8 @@ export class PaymentDetailsPage implements OnInit {
         this.updatedAt = res['updatedAt'];
 
         this.paymentDetailsLoading = false;
+
+       
 
       })
       .catch(err => {

@@ -8,11 +8,16 @@ import { PaymentDetailsPageRoutingModule } from './payment-details-routing.modul
 
 import { PaymentDetailsPage } from './payment-details.page';
 
+import { MaterialModule } from '../material/material.module';
+
+ 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MaterialModule,
     PaymentDetailsPageRoutingModule
   ],
   declarations: [PaymentDetailsPage]

@@ -41,25 +41,17 @@
 
          
             <ion-card *ngFor="let payment of this.myPayments">
-                <ion-item>
+              
+                <ion-item lines="none">
                   <ion-icon name="wallet-sharp" slot="start"></ion-icon>
                   <ion-label>
                     <h4><strong>Amount:</strong> {{ payment.amount | currency:"INR":"symbol" }}</h4> 
                     <p> Date: {{ payment.createdAt }}</p>
+                    <p>{{ payment.category }}</p>
                   </ion-label>
+                  
                   <ion-icon name="chevron-forward-circle-sharp" slot="end" (click)="gotoPaymentDetails(payment.id)"></ion-icon>
                 </ion-item>
-              
-                <ion-card-content>
-                 <ion-row>
-                   <ion-col>
-                     <strong>Description:</strong> {{ payment.description }}
-                   </ion-col>
-                   <ion-col>
-                  <strong>Payee:</strong> {{ payment.payee }}
-                   </ion-col>
-                 </ion-row>
-                </ion-card-content>
             </ion-card>
 
             <ng-template #paymentFetchErrorBlock>
