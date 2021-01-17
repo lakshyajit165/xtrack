@@ -6,18 +6,22 @@ import { IonicModule } from '@ionic/angular';
 
 import { PaymentDetailsPageRoutingModule } from './payment-details-routing.module';
 
-import { PaymentDetailsPage } from './payment-details.page';
+import { DeletePaymentDialog, PaymentDetailsPage } from './payment-details.page';
 
 import { MaterialModule } from '../material/material.module';
+
+import { MatDialogModule } from '@angular/material/dialog';
 
  
 
 @NgModule({
+  
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     MaterialModule,
+    MatDialogModule,
     PaymentDetailsPageRoutingModule
   ],
   declarations: [PaymentDetailsPage]

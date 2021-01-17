@@ -11,95 +11,62 @@
   <!-- <p>Payment details works!</p> -->
   <ion-grid>
    
-    
-    <!-- <ion-row class="row header">
-      <ion-col>
-          <h5 ion-text class="home-header"><ion-icon name="card-outline"></ion-icon>Amount:</h5>
-          <p> {{ amount | currency:"INR":"symbol" }}</p>
-      </ion-col>
-      <ion-col>
-        <h5 ion-text class="home-header"><ion-icon name="pricetags-outline"></ion-icon>Category:</h5>
-        <p> {{ category }} </p>
-    </ion-col>
-    </ion-row>
-    <ion-row class="row">
-      <div class="details">
-          <h5 ion-text class="home-header"><ion-icon name="reader-outline"></ion-icon>Description:</h5>
-          <p> {{ description }} </p>
-      
-        <h5 ion-text class="home-header"><ion-icon name="happy-outline"></ion-icon>Payee:</h5>
-        <p> {{ payee }} </p>
-      
-        <h5 ion-text class="home-header"><ion-icon name="person-outline"></ion-icon>Payer:</h5>
-        <p> {{ payer }} </p>
-     
-        <h5 ion-text class="home-header"><ion-icon name="pricetags-outline"></ion-icon>Last Udpated:</h5>
-        <p> {{ updatedAt | date:'medium' }} </p>
-      </div>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="button" expand="block">
-          Edit
-        </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button type="button" expand="block">
-          Delete
-        </ion-button>
-      </ion-col>
-    </ion-row> -->
-    <div>
-      <ion-item-group>
-        <ion-item lines="none">
-          <ion-label><strong>Transaction ID</strong></ion-label><br>
-        </ion-item>
-        <ion-item>
-          <p>{{ displayedId }}</p>
-        </ion-item>
-        
-        <ion-item lines="none">
-          <ion-label><strong>Description</strong></ion-label><br>
-        </ion-item>
-        <ion-item lines="none" style="padding-top: 5px;">
-         
-          <ion-icon name="wallet-sharp" slot="start"></ion-icon>
-          <ion-row style="width: 100%;">
-            <ion-col>
-              {{ description }}
-            </ion-col>
-            <ion-col style="text-align: right;">
-              <strong>{{ amount | currency:"INR":"symbol" }}</strong>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-        <ion-item></ion-item>
-        <ion-item>
-          <ion-label><strong>Paid To</strong></ion-label>
-          <p>{{ payee }}</p>
-        </ion-item>
-  
-        <ion-item>
-          <ion-label><strong>Type</strong></ion-label>
-          <p>{{ category }}</p>
-        </ion-item>
-  
-        <ion-item lines="none">
-          <ion-label><strong>Date of Payment</strong></ion-label>
-          <p>{{ createdAt | date:'medium' }}</p>
-       
-        </ion-item>
-        <ion-item lines="none">
-         
-          <ion-row style="width: 100%; display: flex; justify-content:flex-start; margin-left: -15px;">
-            <button mat-button color="primary">EDIT</button>
-            <button mat-button color="primary">DELETE</button>
-          </ion-row>
-        </ion-item>
-      </ion-item-group>
-     
+    <div class="fetch-error" *ngIf="paymentFetchError; else paymentDetailsBlock">
+      Error fetching transaction. It's possible that this transaction no longer exists or the Transaction ID is invalid.
     </div>
+
+    <ng-template #paymentDetailsBlock>
+        <div>
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-label><strong>Transaction ID</strong></ion-label><br>
+            </ion-item>
+            <ion-item>
+              <p>{{ displayedId }}</p>
+            </ion-item>
+            
+            <ion-item lines="none">
+              <ion-label><strong>Description</strong></ion-label><br>
+            </ion-item>
+            <ion-item lines="none" style="padding-top: 5px;">
+            
+              <ion-icon name="wallet-sharp" slot="start"></ion-icon>
+              <ion-row style="width: 100%;">
+                <ion-col>
+                  {{ description }}
+                </ion-col>
+                <ion-col style="text-align: right;">
+                  <strong>{{ amount | currency:"INR":"symbol" }}</strong>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+            <ion-item></ion-item>
+            <ion-item>
+              <ion-label><strong>Paid To</strong></ion-label>
+              <p>{{ payee }}</p>
+            </ion-item>
+      
+            <ion-item>
+              <ion-label><strong>Type</strong></ion-label>
+              <p>{{ category }}</p>
+            </ion-item>
+      
+            <ion-item lines="none">
+              <ion-label><strong>Date of Payment</strong></ion-label>
+              <p>{{ createdAt | date:'medium' }}</p>
+          
+            </ion-item>
+            <ion-item lines="none">
+            
+              <ion-row style="width: 100%; display: flex; justify-content:flex-start;">
+                <button class="my-theme" mat-button color="primary">EDIT</button>
+                <button class="my-theme" mat-button color="primary" (click)="openDeleteDialog(id)">DELETE</button>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+        
+        </div>
+    </ng-template>
    
   </ion-grid>
 </ion-content>

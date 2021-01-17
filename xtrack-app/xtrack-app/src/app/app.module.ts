@@ -25,12 +25,13 @@ import { loginStatus } from './providers/loginStatus.provider';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AuthRouteGuard } from './services/auth/authroute.guard';
 import { paymentdetails } from './providers/paymentdetails.provider';
+import { DeletePaymentDialog } from './payment-details/payment-details.page';
 
 
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, DeletePaymentDialog],
+  entryComponents: [DeletePaymentDialog],
   imports: [
     BrowserModule, 
     FormsModule,

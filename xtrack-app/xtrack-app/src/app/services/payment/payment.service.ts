@@ -105,11 +105,15 @@ export class PaymentService {
     let response: object;
     this.http.setDataSerializer('json');
 
-    await this.http.delete(this.serviceRoute + 'v1/payments/'+id, id, headers)
+    console.log('inside delete service')
+
+    await this.http.delete(this.serviceRoute + 'v1/payments/'+id, {}, headers)
     .then(res => {
+      console.log("Inside service: success: ", res);
       response = JSON.parse(res.data);
     })
     .catch(err => {
+      console.log("Inside service err: ", err);
       response = JSON.parse(err.error);
     })
 
