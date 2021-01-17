@@ -5,6 +5,13 @@
  
 </mat-dialog-content>
 <mat-dialog-actions align="end" style="margin-bottom: 5px;">
-  <button mat-button  mat-raised-button mat-dialog-close color="accent">Cancel</button>
-  <button mat-button mat-raised-button color="warn" color="primary" (click)="deletePayment()">Yes, Delete</button>
+  <button mat-button [disabled]="deleteloading" mat-raised-button mat-dialog-close color="accent">Cancel</button>
+  
+  <button mat-button mat-raised-button color="warn" color="primary" (click)="deletePayment()">
+    <ion-spinner name="crescent" *ngIf="deleteloading; else textDisplay"></ion-spinner>
+    <ng-template #textDisplay>
+      Yes, Delete
+    </ng-template>
+    
+  </button>
 </mat-dialog-actions>

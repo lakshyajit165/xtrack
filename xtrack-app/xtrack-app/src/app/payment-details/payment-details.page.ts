@@ -38,6 +38,18 @@ export class PaymentDetailsPage implements OnInit {
   paymentFetchError: boolean = false;
   paymentDetailsLoading: boolean = false;
 
+  public paymentTemp: IPaymentResponse = {
+    id: 0,
+    amount: 0,
+    category: '',
+    createdAt: '',
+    description: '',
+    payee: '',
+    payer: '',
+    updatedAt: ''
+
+}
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -53,8 +65,11 @@ export class PaymentDetailsPage implements OnInit {
 
     console.log(this.router.url);
 
+    
+
       // check if provider is undefined, fetch from service
-      if(this.paymentdetails.payment === undefined) {
+      if(this.checkIfProviderIsEmpty())
+         {
 
         this.paymentDetailsLoading = true;
   
@@ -114,6 +129,21 @@ export class PaymentDetailsPage implements OnInit {
 
   }
 
+  checkIfProviderIsEmpty(): boolean {
+
+    if(this.paymentdetails.payment.id === 0 &&
+      this.paymentdetails.payment.amount === 0 &&
+      this.paymentdetails.payment.category === '' &&
+      this.paymentdetails.payment.createdAt === '' &&
+      this.paymentdetails.payment.description === '' &&
+      this.paymentdetails.payment.payee === '' &&
+      this.paymentdetails.payment.payer === '' &&
+      this.paymentdetails.payment.updatedAt === '')
+      return true;
+
+    return false;
+  }
+
   openDeleteDialog(id: number): void {
     const dialogRef = this.dialog.open(DeletePaymentDialog, {
       data: {
@@ -131,6 +161,7 @@ export class PaymentDetailsPage implements OnInit {
 
 
   }
+
 
  
 
