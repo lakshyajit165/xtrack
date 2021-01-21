@@ -22,8 +22,8 @@ jobs:
       #   with:
       #     node-version: 13.x
 
-      # - name: Install Cordova
-      #   run: npm install -g cordova
+      - name: Install Cordova
+        run: sudo npm install -g cordova
 
       - name: Install Ionic
         run: sudo npm install -g @ionic/cli
