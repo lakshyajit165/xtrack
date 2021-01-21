@@ -1,9 +1,9 @@
-name: Build Android App
+
+name: Deploy to EC2 or Generate APK
 on:
   push:
     branches:
       - stage-app
-
 jobs:
   build:
     name: Build APK
@@ -56,14 +56,7 @@ jobs:
           name: app-release
           path: platforms/android/app/build/outputs/bundle/release/app.aab
 
-          
 
-name: Deploy to EC2
-on:
-  push:
-    branches:
-      - stage
-jobs:
   deploy:
     name: "Deploy to staging"
     runs-on: ubuntu-latest
@@ -97,6 +90,7 @@ jobs:
              && chmod 777 deploy.sh \
              && ./deploy.sh'
        
+
 
 
 
