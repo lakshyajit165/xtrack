@@ -32,29 +32,29 @@ jobs:
         run: npm install
 
       - name: Add Android platform
-        run: ionic cordova platform add android@latest
+        run: cd xtrack-app/xtrack-app && ionic cordova platform add android@latest
 
       - name: Build Android Dev APK
-        run: ionic cordova build android
+        run: cd xtrack-app/xtrack-app && ionic cordova build android
 
       - name: Build Android Release APK
-        run: ionic cordova build android --release --prod
+        run: cd xtrack-app/xtrack-app && ionic cordova build android --release --prod
 
       - name: Generate the Android App Bundle
-        working-directory: ./platforms/android/
+        working-directory: ./xtrack-app/xtrack-app/platforms/android/
         run: ./gradlew bundle
 
       - name: Upload dev APK
         uses: actions/upload-artifact@v1
         with:
           name: app-dev
-          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
+          path: ./xtrack-app/xtrack-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v1
         with:
           name: app-release
-          path: platforms/android/app/build/outputs/bundle/release/app.aab
+          path: ./xtrack-app/xtrack-app/platforms/android/app/build/outputs/bundle/release/app.aab
 
 
   deploy:
