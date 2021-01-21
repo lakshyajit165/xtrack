@@ -7,8 +7,21 @@
     </ion-header> -->
     <ion-content>
       <ion-list id="menu-list"> 
-        <ion-list-header class="menu-header">Hi There!</ion-list-header>
-          <ion-note *ngIf="this.currentUser !== undefined">{{ currentUser }}</ion-note>
+        <ion-list-header class="menu-header">
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <div style="background-color: blue; height: 100%; width: 100%; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                <span style="color: white;"> {{ firstLetter }} </span>
+              </div>
+            </ion-avatar>
+            <ion-label>
+              <p style="font-weight: bold;">Hi There!</p>
+              <p *ngIf="this.currentUser !== undefined">{{ currentUser }}</p>
+            </ion-label>
+            <!-- <ion-note *ngIf="this.currentUser !== undefined">{{ currentUser }}</ion-note> -->
+          </ion-item>
+        </ion-list-header>
+          
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages; let i = index">
           <ion-item (click)="selectedIndex = i" [routerLink]="page.path" routerDirection="root"  lines="none" [routerLinkActive]="['selected']">
             

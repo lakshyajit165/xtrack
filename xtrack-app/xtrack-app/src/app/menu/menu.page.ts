@@ -24,6 +24,7 @@ export class MenuPage implements OnInit {
   activePath = '';
   public selectedIndex = 0;
   currentUser: string;
+  firstLetter: string;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -92,6 +93,7 @@ export class MenuPage implements OnInit {
     this.storage.getItem('user').then(val => {
       console.log("Current User ", val);
       this.currentUser = val;
+      this.firstLetter = this.currentUser[0].toUpperCase();
     })
     .catch(err => {
 

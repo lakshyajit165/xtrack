@@ -29,7 +29,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginPage implements OnInit {
 
-  private loginform : FormGroup;
+  public loginform : FormGroup;
   user: IUserLogin = {
     usernameOrEmail: '',
     password: ''
