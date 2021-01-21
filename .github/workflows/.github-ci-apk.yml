@@ -25,11 +25,11 @@ jobs:
       # - name: Install Cordova
       #   run: npm install -g cordova
 
-      # - name: Install Ionic
-      #   run: npm install -g @ionic/cli
+      - name: Install Ionic
+        run: npm install -g @ionic/cli
 
-      # - name: Install app dependencies
-      #   run: npm install
+      - name: Install app dependencies
+        run: cd  xtrack-app/xtrack-app && npm install
 
       # - name: Add Android platform
       #   run: cd xtrack-app/xtrack-app && ionic cordova platform add android@latest
