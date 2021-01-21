@@ -38,7 +38,7 @@ jobs:
       #   run: cd xtrack-app/xtrack-app && ionic cordova build android
 
       - name: Build Android Release APK
-        run: cd xtrack-app/xtrack-app && npm install @ionic/app-scripts@latest --save-dev && ionic cordova build android --release --prod --verbose
+        run: cd xtrack-app/xtrack-app && ionic cordova platform add android && ionic cordova build android --release --prod --verbose
 
       - name: Generate the Android App Bundle
         working-directory: ./xtrack-app/xtrack-app/platforms/android/
