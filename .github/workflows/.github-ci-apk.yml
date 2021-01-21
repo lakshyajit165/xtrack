@@ -37,18 +37,18 @@ jobs:
       # - name: Build Android Dev APK
       #   run: cd xtrack-app/xtrack-app && ionic cordova build android
 
-      - name: Build Android Release APK
-        run: cd xtrack-app/xtrack-app && ionic cordova platform add android && ionic cordova build android --release --prod --verbose
+      # - name: Build Android Release APK
+      #   run: cd xtrack-app/xtrack-app && ionic cordova platform add android && ionic cordova build android --release --prod --verbose
 
       - name: Generate the Android App Bundle
         working-directory: ./xtrack-app/xtrack-app/platforms/android/
         run: ./gradlew bundle
 
-      - name: Upload unsigned APK
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-dev
-          path: ./xtrack-app/xtrack-app/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+      # - name: Upload unsigned APK
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: app-dev
+      #     path: ./xtrack-app/xtrack-app/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v1
