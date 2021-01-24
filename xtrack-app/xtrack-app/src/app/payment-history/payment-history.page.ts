@@ -14,8 +14,10 @@ import { paymentdetails } from '../providers/paymentdetails.provider';
 })
 export class PaymentHistoryPage implements OnInit {
 
-  startdate="2020-10-10";
-  enddate="2020-11-10";
+  startdate: string = "";
+  enddate: string = "";
+
+  maxdate: string = "";
 
   currentPage: number = 0;
   currentSize: number = 5;
@@ -44,7 +46,22 @@ export class PaymentHistoryPage implements OnInit {
 
   ionViewDidEnter(): void {
     
+    // set maxdate value (to be used as max values for both from and to dates)
+    this.maxdate = new Date().toISOString().split("T")[0];
+    // set start date to 1 month prior to today's date
+    
+    
+    let d = new Date();
+    this.enddate = d.toISOString();
+
+    d.setMonth(d.getMonth() - 1);
+
+    this.startdate = d.toISOString();
     // check if ngOninitalready called, no need to call again
+
+    console.log("STARTDATE:", this.startdate, this.enddate);
+
+   // console.log(this.getStartDateMonth(this.enddate));
   
       this.getPaymentDetails();
   }
@@ -54,7 +71,7 @@ export class PaymentHistoryPage implements OnInit {
 
     this.paymentService.getMyPayments(this.currentPage, this.currentSize)
      .then(res => {
-       console.log("GETTING DATA FROM service inside home component: "+ res);
+       console.log(res);
        this.myPayments = res['content'];
       
        console.log(this.myPayments);
@@ -88,6 +105,15 @@ export class PaymentHistoryPage implements OnInit {
     this.paymentdetails.payment.createdAt = payment[0].createdAt;
     this.paymentdetails.payment.updatedAt = payment[0].updatedAt;
     
+  }
+
+  startDateChanged(event): void {
+    console.log(this.startdate);
+  }
+
+  endDateChanged(event): void {
+    console.log(event);
+    console.log(this.enddate);
   }
 
 }

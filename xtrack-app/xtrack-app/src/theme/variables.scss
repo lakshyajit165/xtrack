@@ -1,6 +1,13 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face {
+  font-family: 'Questrial-Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/Questrial-Regular.ttf');
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -74,4 +81,7 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** Custom Font **/
+  --ion-font-family: 'Questrial-Regular';
 }
