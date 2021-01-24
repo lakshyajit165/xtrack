@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { BooleanValueAccessor, Platform } from '@ionic/angular';
 import { IPaymentResponse } from '../model/IPaymentResponse';
 import { AuthService } from '../services/auth/auth.service';
 import { PaymentService } from '../services/payment/payment.service';
@@ -21,6 +21,7 @@ export class PaymentHistoryPage implements OnInit {
 
   currentPage: number = 0;
   currentSize: number = 5;
+  lastPage: boolean;
 
   paymentFetchError: boolean = false;
   paymentdetailsloading: boolean = false;
@@ -67,13 +68,22 @@ export class PaymentHistoryPage implements OnInit {
   }
   
   getPaymentDetails(): void {
+    
+    
     this.paymentdetailsloading = true;
 
-    this.paymentService.getMyPayments(this.currentPage, this.currentSize)
+    let from = this.startdate.split("T").reverse()[1];
+    let to = this.enddate.split("T").reverse()[1];
+
+    this.paymentService.getMyPaymentsByDate(from, to, this.currentPage, this.currentSize)
      .then(res => {
        console.log(res);
        this.myPayments = res['content'];
-      
+
+       this.currentPage = res['page'];
+
+       this.lastPage = res['last'];
+       
        console.log(this.myPayments);
        this.paymentdetailsloading = false;
      })
@@ -114,6 +124,18 @@ export class PaymentHistoryPage implements OnInit {
   endDateChanged(event): void {
     console.log(event);
     console.log(this.enddate);
+
+    this.getPaymentDetails();
+  }
+
+  nextPage(): void {
+    this.currentPage += 1;
+    this.getPaymentDetails();
+  }
+
+  previousPage(): void {
+    this.currentPage -= 1;
+    this.getPaymentDetails();
   }
 
 }

@@ -59,6 +59,15 @@
                     <p>Couldn't fetch payment details! :(</p>
                 </div>
             </ng-template>
+
+            <ion-row>
+                <ion-col>
+                    <button mat-stroked-button color="primary" [disabled]="currentPage === 0" (click)="previousPage()" class="pagination-btns">Previous</button>
+                </ion-col>
+                <ion-col>
+                    <button mat-stroked-button color="primary" [disabled]="lastPage" (click)="nextPage()" class="pagination-btns">Next</button>
+                </ion-col>
+            </ion-row>
     </ng-template>
         
        
