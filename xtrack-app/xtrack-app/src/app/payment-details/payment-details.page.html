@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Payment Details</ion-title>
+    <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <p>Payment details works!</p> -->
+  <ion-grid>
+   
+    <div class="fetch-error" *ngIf="paymentFetchError; else paymentDetailsBlock">
+      Error fetching transaction. It's possible that this transaction no longer exists or the Transaction ID is invalid.
+    </div>
+
+    <ng-template #paymentDetailsBlock>
+        <div>
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-label><strong>Transaction ID</strong></ion-label><br>
+            </ion-item>
+            <ion-item>
+              <p>{{ displayedId }}</p>
+            </ion-item>
+            
+            <ion-item lines="none">
+              <ion-label><strong>Description</strong></ion-label><br>
+            </ion-item>
+            <ion-item lines="none" style="padding-top: 5px;">
+            
+              <ion-icon name="wallet-sharp" slot="start"></ion-icon>
+              <ion-row style="width: 100%;">
+                <ion-col>
+                  {{ description }}
+                </ion-col>
+                <ion-col style="text-align: right;">
+                  <strong>{{ amount | currency:"INR":"symbol" }}</strong>
+                </ion-col>
+              </ion-row>
+            </ion-item>
+            <ion-item></ion-item>
+            <ion-item>
+              <ion-label><strong>Paid To</strong></ion-label>
+              <p>{{ payee }}</p>
+            </ion-item>
+      
+            <ion-item>
+              <ion-label><strong>Type</strong></ion-label>
+              <p>{{ category }}</p>
+            </ion-item>
+      
+            <ion-item lines="none">
+              <ion-label><strong>Date of Payment</strong></ion-label>
+              <p>{{ createdAt | date:'medium' }}</p>
+          
+            </ion-item>
+            <ion-item lines="none">
+            
+              <ion-row style="width: 100%; display: flex; justify-content:flex-start;">
+                <button class="my-theme" mat-button color="primary">EDIT</button>
+                <button class="my-theme" mat-button color="primary" (click)="openDeleteDialog(id)">DELETE</button>
+              </ion-row>
+            </ion-item>
+          </ion-item-group>
+        
+        </div>
+    </ng-template>
+   
+  </ion-grid>
+</ion-content>

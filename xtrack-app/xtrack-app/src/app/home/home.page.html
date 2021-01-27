@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Home</ion-title>
+        <ion-buttons slot="start">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <p>Home Page works!</p>
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed" class="fab-btn">
+        <!-- <ion-fab-button>
+         <ion-icon name="chevron-up-circle-outline"></ion-icon>
+        </ion-fab-button> -->
+
+        <!-- <ion-fab-list side="top"> -->
+
+          <ion-fab-button color="primary" (click)="routeFunction('/xtrack/menu/add-expense')">
+            <ion-icon name="add-outline"></ion-icon>
+          </ion-fab-button>
+
+          <!-- <ion-fab-button color="light" (click)="routeFunction('/qrscan')">
+            <ion-icon name="qr-code-sharp" ></ion-icon>
+          </ion-fab-button>
+          
+        </ion-fab-list> -->
+      </ion-fab>
+
+    
+</ion-content>

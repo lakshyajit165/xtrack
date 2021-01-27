@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Payment History</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+        <ion-col>
+            <h2 ion-text class="home-header">My Expense Overview</h2>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-item-divider></ion-item-divider>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="floating">Start Date</ion-label>
+                <ion-datetime value={{startdate}} placeholder="Select Date"></ion-datetime>
+            </ion-item>    
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label position="floating">End Date</ion-label>
+                <ion-datetime value={{enddate}} placeholder="Select Date"></ion-datetime>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    
+    <div class="payment-loading" *ngIf="this.paymentdetailsloading; else paymentDetailsBlock">
+        <ion-spinner name="crescent" class="pageload-spinner"></ion-spinner>
+    </div>
+
+    <ng-template #paymentDetailsBlock>
+
+         
+            <ion-card *ngFor="let payment of this.myPayments">
+              
+                <ion-item lines="none">
+                  <ion-icon name="wallet-sharp" slot="start"></ion-icon>
+                  <ion-label>
+                    <h4><strong>Amount:</strong> {{ payment.amount | currency:"INR":"symbol" }}</h4> 
+                    <p> Date: {{ payment.createdAt }}</p>
+                    <p>{{ payment.category }}</p>
+                  </ion-label>
+                  
+                  <ion-icon name="chevron-forward-circle-sharp" slot="end" (click)="gotoPaymentDetails(payment.id)"></ion-icon>
+                </ion-item>
+            </ion-card>
+
+            <ng-template #paymentFetchErrorBlock>
+                <div class="paymentdisperr">
+                    <p>Couldn't fetch payment details! :(</p>
+                </div>
+            </ng-template>
+    </ng-template>
+        
+       
+</ion-grid>
+
+</ion-content>

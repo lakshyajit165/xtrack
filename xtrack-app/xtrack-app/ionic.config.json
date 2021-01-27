@@ -1,0 +1,7 @@
+{
+  "name": "ionic-side-menu-tabs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
