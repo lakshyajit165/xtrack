@@ -47,9 +47,8 @@
           <ion-item class="category">
             <ion-label>Category</ion-label>
             <ion-select interface="action-sheet" [(ngModel)]="category">
-              <ion-select-option value="Food">Food</ion-select-option>
-              <ion-select-option value="Recharge">Recharge</ion-select-option>
-              <ion-select-option value="Shopping">Shopping</ion-select-option>
+              <ion-select-option *ngFor="let c of categorylist" value="{{c}}">{{c}}</ion-select-option>
+              
             </ion-select>
           </ion-item>
         </ion-col>

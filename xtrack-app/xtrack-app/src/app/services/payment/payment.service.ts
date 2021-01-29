@@ -160,6 +160,47 @@ export class PaymentService {
 
   }
 
+  // get my payments (pass page and size) - WITH DATE FILTERS
+  async getMyPaymentsByDate(from: string, to: string, page: number, size: number): Promise<object> {
+
+    console.log("MY PAYMENTS WITH FILTERS called!", from , to);
+
+
+    let headers = {};
+    // set the headers
+    let response: object;
+    this.http.setDataSerializer('json');
+
+    await this.storage.getItem('key')
+    .then(res => {
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+res
+      };
+    })
+    .catch(err => {
+
+      
+    })
+
+    console.log("DISPLAYING headers  from service: ", headers);
+    await this.http.get(this.serviceRoute + 'v1/payments/mypayments/filtered?from=' + from + '&to=' + to + '&page=' + page + '&size=' + size, {}, headers)
+    .then(res => {
+      response = JSON.parse(res.data);
+    })
+    .catch(err => {
+      response = JSON.parse(err.error);
+    })
+
+  
+
+   
+
+    return response;
+
+  }
+
+
   // get payment by id:
   async getPaymentById(id: number): Promise<object> {
 

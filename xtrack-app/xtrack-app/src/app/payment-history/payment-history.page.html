@@ -12,7 +12,7 @@
   <ion-grid>
     <ion-row>
         <ion-col>
-            <h2 ion-text class="home-header">My Expense Overview</h2>
+            <h2 ion-text class="home-header history-title">My Expense Overview</h2>
         </ion-col>
     </ion-row>
     <ion-row>
@@ -22,13 +22,13 @@
         <ion-col>
             <ion-item>
                 <ion-label position="floating">Start Date</ion-label>
-                <ion-datetime value={{startdate}} placeholder="Select Date"></ion-datetime>
+                <ion-datetime max={{maxdate}} value={{startdate}} [(ngModel)]="startdate" (ionChange)="startDateChanged($event)" placeholder="Select Date"></ion-datetime>
             </ion-item>    
         </ion-col>
         <ion-col>
             <ion-item>
                 <ion-label position="floating">End Date</ion-label>
-                <ion-datetime value={{enddate}} placeholder="Select Date"></ion-datetime>
+                <ion-datetime max={{maxdate}} value={{enddate}} [(ngModel)]="enddate" (ionChange)="endDateChanged($event)" placeholder="Select Date"></ion-datetime>
             </ion-item>
         </ion-col>
     </ion-row>
@@ -59,6 +59,26 @@
                     <p>Couldn't fetch payment details! :(</p>
                 </div>
             </ng-template>
+
+            <ion-row *ngIf="this.paymentsListEmpty">
+
+                <div class="no-payments">
+                    <ion-col style="text-align: center;">
+                        <ion-item lines="none">
+                            <p style="text-align: center;">No payments to display in this date range!</p>
+                        </ion-item>
+                    </ion-col>
+                </div>
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <button mat-stroked-button color="primary" [disabled]="currentPage === 0" (click)="previousPage()" class="pagination-btns">Previous</button>
+                </ion-col>
+                <ion-col>
+                    <button mat-stroked-button color="primary" [disabled]="lastPage" (click)="nextPage()" class="pagination-btns">Next</button>
+                </ion-col>
+            </ion-row>
     </ng-template>
         
        
