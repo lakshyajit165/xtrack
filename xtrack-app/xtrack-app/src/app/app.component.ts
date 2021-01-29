@@ -141,7 +141,7 @@ export class AppComponent implements OnInit{
   
   backButtonEvent() {
     this.platform.backButton.subscribeWithPriority(9999, () => {
-      if(this._router.url === '/xtrack/menu/home') {
+      if(this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
         console.log("--------------------------", this._router.url);
         this.backButtonAlert();
       } else {

@@ -119,6 +119,7 @@ export class PaymentHistoryPage implements OnInit {
 
   startDateChanged(event): void {
     console.log(this.startdate);
+    this.getPaymentDetails();
   }
 
   endDateChanged(event): void {
