@@ -60,6 +60,17 @@
                 </div>
             </ng-template>
 
+            <ion-row *ngIf="this.paymentsListEmpty">
+
+                <div class="no-payments">
+                    <ion-col style="text-align: center;">
+                        <ion-item lines="none">
+                            <p style="text-align: center;">No payments to display in this date range!</p>
+                        </ion-item>
+                    </ion-col>
+                </div>
+            </ion-row>
+
             <ion-row>
                 <ion-col>
                     <button mat-stroked-button color="primary" [disabled]="currentPage === 0" (click)="previousPage()" class="pagination-btns">Previous</button>

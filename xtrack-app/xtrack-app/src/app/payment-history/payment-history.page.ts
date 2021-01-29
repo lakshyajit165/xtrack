@@ -28,6 +28,8 @@ export class PaymentHistoryPage implements OnInit {
 
   myPayments: IPaymentResponse[] = [];
 
+  paymentsListEmpty: boolean = false;
+
   
   constructor(
     private router: Router,
@@ -79,6 +81,8 @@ export class PaymentHistoryPage implements OnInit {
      .then(res => {
        console.log(res);
        this.myPayments = res['content'];
+
+       this.paymentsListEmpty = this.myPayments.length === 0 ? true : false;
 
        this.currentPage = res['page'];
 
