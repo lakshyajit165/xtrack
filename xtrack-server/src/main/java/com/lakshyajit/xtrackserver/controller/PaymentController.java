@@ -2,6 +2,7 @@ package com.lakshyajit.xtrackserver.controller;
 
 import com.lakshyajit.xtrackserver.exception.ResourceNotFoundException;
 import com.lakshyajit.xtrackserver.model.Category;
+import com.lakshyajit.xtrackserver.model.CategoryTotal;
 import com.lakshyajit.xtrackserver.model.Payment;
 import com.lakshyajit.xtrackserver.payload.ApiResponse;
 import com.lakshyajit.xtrackserver.payload.PagedResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/v1/payments")
@@ -100,6 +102,26 @@ public class PaymentController {
             return ResponseEntity.badRequest().body(new ApiResponse(false, "Error fetching payment details!"));
         }
     }
+
+    // get CategoryTotal for a particular user
+    @GetMapping("/mypayments/categorytotal")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getCategoryTotal(
+            @CurrentUser UserPrincipal currentUser,
+            @RequestParam(value = "from") String from,
+            @RequestParam(value = "to") String to
+    ) {
+        try {
+
+            ArrayList<CategoryTotal> categoryTotals = paymentService.getCategoryTotals(currentUser, from, to);
+            return ResponseEntity.ok().body(categoryTotals);
+
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Error fetching category totals!"));
+        }
+    }
+
+
     // edit payment(only desc and category are editable
     @PatchMapping("mypayments/{id}")
     @PreAuthorize("hasRole('USER')")

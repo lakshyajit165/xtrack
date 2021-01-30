@@ -3,6 +3,7 @@ package com.lakshyajit.xtrackserver.service;
 import com.lakshyajit.xtrackserver.exception.BadRequestException;
 import com.lakshyajit.xtrackserver.exception.ResourceNotFoundException;
 import com.lakshyajit.xtrackserver.model.Category;
+import com.lakshyajit.xtrackserver.model.CategoryTotal;
 import com.lakshyajit.xtrackserver.model.Payment;
 import com.lakshyajit.xtrackserver.payload.PagedResponse;
 import com.lakshyajit.xtrackserver.payload.PaymentRequest;
@@ -21,8 +22,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -122,6 +123,16 @@ public class PaymentService {
                 payments.getTotalPages(),
                 payments.isLast()
         );
+    }
+
+    // get category count for a particular user
+    public ArrayList<CategoryTotal> getCategoryTotals(UserPrincipal currentUser, String from, String to) {
+
+        String email = currentUser.getEmail();
+        ArrayList<CategoryTotal> categoryTotals = paymentRepository.findCategoryCount(email, from, to);
+
+        return categoryTotals;
+
     }
 
     //edit a payment(only description and category fields are editable)
