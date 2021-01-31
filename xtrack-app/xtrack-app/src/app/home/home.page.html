@@ -8,7 +8,51 @@
 </ion-header>
 
 <ion-content padding>
-    <p>Home Page works!</p>
+    <!-- <p>Home Page works!</p> -->
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+              <h2 ion-text class="home-header home-title">Welcome to Xtrack!</h2>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h5 ion-text style="text-align: center;">Manage your expenses with ease!</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step label="Step 1">
+            <p>Add your Expenses</p>
+            <!-- <div>
+              <button mat-raised-button matStepperNext>Next</button>
+            </div> -->
+          </mat-step>
+          <mat-step label="Step 2">
+            <p>Keep track of your monthly expenses</p>
+            <!-- <div>
+              <button mat-raised-button matStepperPrevious>Back</button>
+              <button mat-raised-button matStepperNext>Next</button>
+            </div> -->
+          </mat-step>
+          <mat-step label="Step 3">
+            <p>Edit/Delete them as per your need!</p>
+          </mat-step>
+        
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <mat-icon>call_end</mat-icon>
+          </ng-template>
+          <ng-template matStepperIcon="chat">
+            <mat-icon>forum</mat-icon>
+          </ng-template>
+        </mat-horizontal-stepper>
+        
+      </ion-row>
+    </ion-grid>
+
+    
     <ion-fab horizontal="end" vertical="bottom" slot="fixed" class="fab-btn">
         <!-- <ion-fab-button>
          <ion-icon name="chevron-up-circle-outline"></ion-icon>

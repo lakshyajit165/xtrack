@@ -19,16 +19,10 @@ import { paymentdetails } from '../providers/paymentdetails.provider';
 export class HomePage implements OnInit {
 
 
-  startdate="2020-10-10";
-  enddate="2020-11-10";
+  fromdate: string = "";
+  todate: string = "";
 
-  currentPage: number = 0;
-  currentSize: number = 5;
-
-  paymentFetchError: boolean = false;
-  paymentdetailsloading: boolean = false;
-
-  myPayments: IPaymentResponse[] = [];
+  isLinear = false;
 
 
   constructor(
@@ -68,15 +62,32 @@ export class HomePage implements OnInit {
 
    // ngOnInit - Initialize your component and load data from services that don't need refreshing on each subsequent visit.
     
-    this.getPaymentDetails();
+    
   }
 
   
   ionViewDidEnter(): void {
     
-    // check if ngOninitalready called, no need to call again
-  
-      this.getPaymentDetails();
+    this.todate = new Date().toISOString().split("T")[0];
+    // set start date to 1 month prior to today's date
+    
+    
+    let d = new Date();
+    this.fromdate= d.toISOString();
+
+    d.setMonth(d.getMonth() - 1);
+
+    this.fromdate = d.toISOString().split("T")[0];
+
+    this.paymentService.getCategoryWiseTotal(this.fromdate, this.todate)
+    .then(res => {
+      console.log("CATEGORY_WISE DATA");
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+     
   }
 
   routeFunction(path: string): void {
@@ -84,48 +95,9 @@ export class HomePage implements OnInit {
     this.router.navigate([path]);
   }
 
-  getPaymentDetails(): void {
-    this.paymentdetailsloading = true;
-
-    this.paymentService.getMyPayments(this.currentPage, this.currentSize)
-     .then(res => {
-       console.log("GETTING DATA FROM service inside home component: "+ res);
-       this.myPayments = res['content'];
-      
-       console.log(this.myPayments);
-       this.paymentdetailsloading = false;
-     })
  
-     .catch(err => {
+
  
-       this.paymentdetailsloading = false;
-       this.paymentFetchError = true;
-     })
-  }
-
-  gotoPaymentDetails(id: number){
-
-    this.setPaymentDetailsInProvider(id);
-    
-    this.routeFunction('/xtrack/menu/payment-details/'+id);
-  }
-
-  setPaymentDetailsInProvider(id: number) {
-   
-    let payment = this.myPayments.filter(ele => ele.id === id);
-
-    this.paymentdetails.payment.id = payment[0].id;
-    this.paymentdetails.payment.amount = payment[0].amount;
-    this.paymentdetails.payment.category = payment[0].category;
-    this.paymentdetails.payment.description = payment[0].description;
-    this.paymentdetails.payment.payee = payment[0].payee;
-    this.paymentdetails.payment.payer = payment[0].payer;
-    this.paymentdetails.payment.createdAt = payment[0].createdAt;
-    this.paymentdetails.payment.updatedAt = payment[0].updatedAt;
-    
-  }
-
-
   // getParamsFromUPIString(params: string, url: string): string {
 
   //   let href = url;

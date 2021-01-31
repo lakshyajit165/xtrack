@@ -128,8 +128,13 @@ public class PaymentService {
     // get category count for a particular user
     public ArrayList<CategoryTotal> getCategoryTotals(UserPrincipal currentUser, String from, String to) {
 
+        // create date formats
+        String fromDate = from + "T00:00:00Z";
+
+        String toDate = to + "T23:59:59Z";
+
         String email = currentUser.getEmail();
-        ArrayList<CategoryTotal> categoryTotals = paymentRepository.findCategoryCount(email, from, to);
+        ArrayList<CategoryTotal> categoryTotals = paymentRepository.findCategoryCount(email, fromDate, toDate);
 
         return categoryTotals;
 

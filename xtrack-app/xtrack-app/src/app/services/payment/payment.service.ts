@@ -200,6 +200,42 @@ export class PaymentService {
 
   }
 
+  // get categorywise total
+  async getCategoryWiseTotal(from: string, to: string): Promise<object> {
+
+    let headers = {};
+    // set the headers
+    let response: object;
+    this.http.setDataSerializer('json');
+
+    await this.storage.getItem('key')
+    .then(res => {
+      headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+res
+      };
+    })
+    .catch(err => {
+
+      
+    })
+
+    await this.http.get(this.serviceRoute + 'v1/payments/mypayments/categorytotal?from=' + from + '&to=' + to, {}, headers)
+    .then(res => {
+      response = JSON.parse(res.data);
+      console.log("INSIDE SERVICE----------------------------------------");
+      console.log(res);
+    })
+    .catch(err => {
+      response = JSON.parse(err.error);
+    })
+
+  
+
+   
+
+    return response;
+  }
 
   // get payment by id:
   async getPaymentById(id: number): Promise<object> {

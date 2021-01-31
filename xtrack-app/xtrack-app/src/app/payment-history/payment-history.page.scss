@@ -22,8 +22,15 @@
     text-align: center;
 }
 
-.pagination-btns {
-    width: 100%;
+// .pagination-btns {
+//     width: 100%;
+// }
+.prev {
+    text-align: right;
+}
+
+.next {
+    text-align: left;
 }
 
 .no-payments {

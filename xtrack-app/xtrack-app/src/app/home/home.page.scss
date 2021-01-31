@@ -3,6 +3,11 @@
     text-align: center;
 }
 
+.home-title {
+    text-align: center;
+}
+
+
 .fab-btn {
     margin-right: 20px;
     margin-bottom: 20px;
@@ -34,4 +39,8 @@ table {
     justify-content: center;
     height: 80vh;
     align-items: center;
+}
+
+mat-raised-button {
+    margin: 2px;
 }
