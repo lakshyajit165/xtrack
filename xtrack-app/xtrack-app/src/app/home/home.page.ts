@@ -11,6 +11,11 @@ import { IPaymentResponse } from '../model/IPaymentResponse';
 import {MatTableDataSource} from '@angular/material/table';
 import { paymentdetails } from '../providers/paymentdetails.provider';
 
+import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+
+import { ICategoryTotal } from '../model/ICategoryTotal';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -23,6 +28,24 @@ export class HomePage implements OnInit {
   todate: string = "";
 
   isLinear = false;
+
+  categoryTotals: ICategoryTotal[];
+
+  // Pie chart
+   // Pie
+   public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: { position: 'bottom'}
+  };
+  public pieChartLabels: Label[] = [];
+  public pieChartData: SingleDataSet = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [];
+
+  public pieChartColors: Array < any > = [{
+    backgroundColor: ['#DFFF00', '#FFBF00', '#FF7F50', '#DE3163', '#9FE2BF', '#40E0D0', '#6495ED', '#CCCCFF'],
+  }];
 
 
   constructor(
@@ -43,6 +66,8 @@ export class HomePage implements OnInit {
     //   console.log(err);
     // })
 
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
     console.log("HOME COMPONENT constructor!");
 
 
@@ -83,6 +108,13 @@ export class HomePage implements OnInit {
     .then(res => {
       console.log("CATEGORY_WISE DATA");
       console.log(res);
+      
+      for (const key in res) {
+        this.pieChartLabels.push(res[key]['category']);
+        this.pieChartData.push(res[key]['amount']);
+        // console.log(res[key]['amount'], res[key]['category']);
+      }
+      
     })
     .catch(err => {
       console.log(err);

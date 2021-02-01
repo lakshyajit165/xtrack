@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 
+import { ChartsModule, ThemeService } from 'ng2-charts';
 
 import { HomePage } from './home.page';
 
@@ -14,6 +15,7 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     MaterialModule,
+    ChartsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -21,6 +23,7 @@ import { HomePage } from './home.page';
       }
     ])
   ],
+  providers: [ThemeService],
   declarations: [HomePage]
 })
 

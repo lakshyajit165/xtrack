@@ -50,6 +50,22 @@
         </mat-horizontal-stepper>
         
       </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item class="ion-no-padding" lines="none" style="display: block; text-align: center; position: relative;">
+            <canvas baseChart 
+              [data]="pieChartData" 
+              [labels]="pieChartLabels" 
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend"
+              [colors]="pieChartColors">
+            </canvas>
+          </ion-item>
+        </ion-col>
+      </ion-row>
     </ion-grid>
 
     

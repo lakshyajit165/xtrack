@@ -27,6 +27,8 @@ import { AuthRouteGuard } from './services/auth/authroute.guard';
 import { paymentdetails } from './providers/paymentdetails.provider';
 import { DeletePaymentDialog } from './payment-details/payment-details.page';
 
+import { ChartsModule, ThemeService } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { DeletePaymentDialog } from './payment-details/payment-details.page';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    ChartsModule,
     IonicModule.forRoot(),
     AppRoutingModule, BrowserAnimationsModule],
   providers: [
@@ -51,6 +54,7 @@ import { DeletePaymentDialog } from './payment-details/payment-details.page';
     loginStatus,
     AuthGuard,
     AuthRouteGuard,
+    ThemeService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
