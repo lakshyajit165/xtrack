@@ -56,7 +56,12 @@
 
       <ion-row>
         <ion-col class="create-expense">
-          <ion-button expand="block" color="primary" (click)="makePayment()">Create</ion-button>
+          <ion-button expand="block" [disabled]="createPaymentLoading" color="primary" (click)="makePayment()">
+            <ion-spinner name="crescent" *ngIf="createPaymentLoading; else textDisplay"></ion-spinner>
+              <ng-template #textDisplay>
+                Create
+              </ng-template>
+            </ion-button>
         </ion-col>
         
       </ion-row>

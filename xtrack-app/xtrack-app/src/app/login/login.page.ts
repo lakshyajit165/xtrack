@@ -6,6 +6,8 @@ import { AuthService } from '../services/auth/auth.service';
 import { IUserLogin } from '../model/IUserLogin';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
+import { NavController } from '@ionic/angular';
+
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -50,7 +52,8 @@ export class LoginPage implements OnInit {
     private _snackBar: MatSnackBar,
     private storage: NativeStorage,
     private loginstatus: loginStatus,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private navController: NavController
 
   ) {
 
@@ -123,7 +126,9 @@ export class LoginPage implements OnInit {
           this.loginloading = false;
 
         
-            this.router.navigateByUrl('/xtrack/menu/home');
+            // this.router.navigateByUrl('/xtrack/menu/home');
+
+            this.navController.navigateForward(['/xtrack/menu/home']);
             this.openSnackBar('Login successful!');
           
          

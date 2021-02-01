@@ -44,3 +44,15 @@ table {
 mat-raised-button {
     margin: 2px;
 }
+
+.chart-loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    width: 100%;
+}
+
+ion-spinner {
+    text-align:center;
+}

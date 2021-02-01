@@ -16,6 +16,8 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 
 import { ICategoryTotal } from '../model/ICategoryTotal';
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -30,6 +32,7 @@ export class HomePage implements OnInit {
   isLinear = false;
 
   categoryTotals: ICategoryTotal[];
+  categoryDataLoading: boolean = true;
 
   // Pie chart
    // Pie
@@ -53,7 +56,8 @@ export class HomePage implements OnInit {
     public platform: Platform,
     private authService: AuthService,
     private paymentService: PaymentService,
-    private paymentdetails: paymentdetails
+    private paymentdetails: paymentdetails,
+
   ) { 
     // this.platform.backButton.subscribeWithPriority(0, () => {
     //   document.getElementsByTagName('body')[0].style.opacity = '1';
@@ -92,6 +96,10 @@ export class HomePage implements OnInit {
 
   
   ionViewDidEnter(): void {
+
+    this.pieChartLabels = [];
+    this.pieChartData = [];
+    this.categoryDataLoading = true;
     
     this.todate = new Date().toISOString().split("T")[0];
     // set start date to 1 month prior to today's date
@@ -108,6 +116,8 @@ export class HomePage implements OnInit {
     .then(res => {
       console.log("CATEGORY_WISE DATA");
       console.log(res);
+      this.categoryDataLoading = false;
+
       
       for (const key in res) {
         this.pieChartLabels.push(res[key]['category']);

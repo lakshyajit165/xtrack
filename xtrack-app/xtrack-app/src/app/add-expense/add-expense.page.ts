@@ -30,6 +30,8 @@ export class AddExpensePage implements OnInit {
     category: ''
   };
 
+  createPaymentLoading: boolean = false;
+
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
@@ -49,6 +51,8 @@ export class AddExpensePage implements OnInit {
 
   makePayment() {
 
+    this.createPaymentLoading = true;
+
     if(this.validatePayment()){
 
       this.payment.amount = this.amount;
@@ -66,6 +70,9 @@ export class AddExpensePage implements OnInit {
 
           // clear fields
           this.clearFields();
+
+          // loading is false
+          this.createPaymentLoading = false;
 
           // show snackbar
           this.openSnackBar('Payment Successful!')
@@ -92,6 +99,7 @@ export class AddExpensePage implements OnInit {
 
       // display snackbar saying invalid form details
       this.openSnackBar('Invalid inputs!');
+      this.createPaymentLoading = false;
     }
    
   }

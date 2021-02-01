@@ -53,17 +53,28 @@
 
       <ion-row>
         <ion-col>
-          <ion-item class="ion-no-padding" lines="none" style="display: block; text-align: center; position: relative;">
-            <canvas baseChart 
-              [data]="pieChartData" 
-              [labels]="pieChartLabels" 
-              [chartType]="pieChartType"
-              [options]="pieChartOptions"
-              [plugins]="pieChartPlugins"
-              [legend]="pieChartLegend"
-              [colors]="pieChartColors">
-            </canvas>
-          </ion-item>
+          <h5 ion-text style="text-align: center;">Monthly Overview</h5>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div *ngIf="categoryDataLoading; else chartBlock" class="chart-loading-spinner">
+            <ion-spinner name="crescent"></ion-spinner>
+          </div>
+          <ng-template #chartBlock>
+            <ion-item class="ion-no-padding" lines="none" style="display: block; text-align: center; position: relative;">
+              <canvas baseChart 
+                [data]="pieChartData" 
+                [labels]="pieChartLabels" 
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [legend]="pieChartLegend"
+                [colors]="pieChartColors">
+              </canvas>
+            </ion-item>
+          </ng-template>
         </ion-col>
       </ion-row>
     </ion-grid>
