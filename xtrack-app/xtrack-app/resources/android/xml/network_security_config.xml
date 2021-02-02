@@ -3,6 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">xtrack-server.herokuapp.com</domain>
-        <domain includeSubdomains="true">65.1.91.156</domain>
+        <domain includeSubdomains="true">52.66.240.206</domain>
     </domain-config>
 </network-security-config>
