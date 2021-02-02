@@ -12,6 +12,7 @@ import {
 } from '@angular/material/snack-bar';
 import { loginStatus } from '../providers/loginStatus.provider';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { HomePage } from '../home/home.page';
 
 
 @Component({
@@ -85,6 +86,12 @@ export class MenuPage implements OnInit {
     //   });
     // }
    
+  }
+
+  onActivate(componentRef): void {
+    // console.log("COMPONENT_REF", componentRef);
+    if(componentRef instanceof HomePage)
+      componentRef.loadDataForPieChart();
   }
 
   ionViewDidEnter() {

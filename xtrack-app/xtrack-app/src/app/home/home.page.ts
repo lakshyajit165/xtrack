@@ -94,9 +94,17 @@ export class HomePage implements OnInit {
     
   }
 
+  testData(): void {
+    console.log("TEST DATA from HOME");
+  }
   
   ionViewDidEnter(): void {
 
+   
+     
+  }
+
+  loadDataForPieChart(): void {
     this.pieChartLabels = [];
     this.pieChartData = [];
     this.categoryDataLoading = true;
@@ -129,7 +137,6 @@ export class HomePage implements OnInit {
     .catch(err => {
       console.log(err);
     })
-     
   }
 
   routeFunction(path: string): void {
