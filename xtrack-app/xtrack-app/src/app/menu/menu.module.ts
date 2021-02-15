@@ -35,6 +35,10 @@ const routes: Routes = [
       {
         path: 'payment-history',
         loadChildren: () => import('../payment-history/payment-history.module').then(m => m.PaymentHistoryPageModule)
+      },
+      {
+        path: 'edit-payment/:id',
+        loadChildren: () => import ('../edit-payment/edit-payment.module').then(m => m.EditPaymentPageModule)
       }
     ]
   }

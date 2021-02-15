@@ -131,7 +131,12 @@ public class PaymentController {
     ) {
 
         try {
-            Payment payment = paymentService.updatePayment(paymentRequest.getDescription(), paymentRequest.getCategory().toString(), id);
+            Payment payment = paymentService.updatePayment(
+                    paymentRequest.getAmount(),
+                    paymentRequest.getPayee(),
+                    paymentRequest.getDescription(),
+                    paymentRequest.getCategory().toString(),
+                    id);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")

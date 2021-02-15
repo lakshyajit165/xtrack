@@ -21,7 +21,7 @@ export class AddExpensePage implements OnInit {
   description: string;
   category: string;
 
-  categorylist = ['Food', 'Recharge', 'Shopping', 'Healthcare', 'Rent', 'Travel', 'Miscellaneous'];
+  categorylist = ['FOOD', 'RECHARGE', 'SHOPPING', 'HEALTHCARE', 'RENT', 'TRAVEL', 'MISCELLANEOUS'];
 
   payment: IPayment = {
     amount: '',

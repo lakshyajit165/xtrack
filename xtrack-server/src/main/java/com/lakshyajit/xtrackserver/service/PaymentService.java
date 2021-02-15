@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -141,7 +142,12 @@ public class PaymentService {
     }
 
     //edit a payment(only description and category fields are editable)
-    public Payment updatePayment(String description, String category, Long id) throws ResourceNotFoundException {
+    public Payment updatePayment(
+            String amount,
+            String payee,
+            String description,
+            String category,
+            Long id) throws ResourceNotFoundException {
 
         if(paymentRepository.existsById(id)){
             Instant now = Instant.now();
@@ -149,7 +155,8 @@ public class PaymentService {
 
             presentPayment.setUpdatedAt(now);
 
-
+            presentPayment.setAmount(new BigDecimal(amount));
+            presentPayment.setPayee(payee);
             presentPayment.setCategory(Category.valueOf(category));
             presentPayment.setDescription(description);
 

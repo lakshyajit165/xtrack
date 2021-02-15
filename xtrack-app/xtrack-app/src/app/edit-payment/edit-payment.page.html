@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Expense</ion-title>
+    <ion-title>Edit Payment</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
@@ -8,11 +8,12 @@
 </ion-header>
 
 <ion-content padding>
+
   <ion-grid>
-    <div class="add-expense-container">
+    <div class="edit-expense-container">
       <ion-row>
-        <ion-col class="add-expense-heading">
-          <h2 ion-text>Create an Expense</h2>
+        <ion-col class="edit-expense-heading">
+          <h2 ion-text>Edit Payment Details here</h2>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -47,7 +48,7 @@
           <ion-item class="category">
             <ion-label>Category</ion-label>
             <ion-select interface="action-sheet" [(ngModel)]="category">
-              <ion-select-option *ngFor="let c of categorylist" value="{{c}}">{{ c | titlecase }}</ion-select-option>
+              <ion-select-option *ngFor="let c of categorylist" value="{{c}}">{{c | titlecase }}</ion-select-option>
               
             </ion-select>
           </ion-item>
@@ -56,15 +57,15 @@
 
       <ion-row>
         <ion-col class="create-expense">
-          <ion-button expand="block" [disabled]="createPaymentLoading" color="primary" (click)="makePayment()">
-            <ion-spinner name="crescent" *ngIf="createPaymentLoading; else textDisplay"></ion-spinner>
+          <ion-button expand="block" [disabled]="editPaymentLoading" color="primary" (click)="editPayment()">
+            <ion-spinner name="crescent" *ngIf="editPaymentLoading; else textDisplay"></ion-spinner>
               <ng-template #textDisplay>
-                Create
+                Save Edits
               </ng-template>
             </ion-button>
         </ion-col>
         
       </ion-row>
     </div>
-  </ion-grid>    
+  </ion-grid>  
 </ion-content>

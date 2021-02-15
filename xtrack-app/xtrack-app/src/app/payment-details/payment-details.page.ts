@@ -162,6 +162,19 @@ export class PaymentDetailsPage implements OnInit {
 
   }
 
+  goToEditPayment(id: number): void {
+
+    // set data in provider
+    this.paymentdetails.payment.id = id;
+    this.paymentdetails.payment.amount = this.amount;
+    this.paymentdetails.payment.description = this.description;
+    this.paymentdetails.payment.payee = this.payee;
+    this.paymentdetails.payment.category = this.category;
+
+    // route to edit payment page
+    this.router.navigate(['/xtrack/menu/edit-payment/'+id]);
+  }
+
 
  
 
