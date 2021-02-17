@@ -1,5 +1,7 @@
 .add-expense-heading {
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .category {
@@ -12,3 +14,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+ion-item {
+    --highlight-color-focused: #33BBFF;
+  }

@@ -14,7 +14,7 @@
                 <div class="register-title">
                   <!-- <ion-icon name="wallet-outline"></ion-icon> -->
                   <h1 ion-text class="app-title">Xtrack</h1>
-                <h2 ion-text>Register</h2>
+                <p ion-text class="register-text">Register</p>
                 </div>
               </ion-col>
               
@@ -100,12 +100,14 @@
               </ion-row>
               <ion-row>
                 <ion-col class="register-btn">
-                  <ion-button [disabled]="registerloading" type="button" expand="block" color="primary" (click)="onSubmit()">
-                    <ion-spinner name="crescent" *ngIf="registerloading; else textDisplay"></ion-spinner>
-                    <ng-template #textDisplay> 
-                      Register
-                    </ng-template>
-                  </ion-button>
+                  
+                    <ion-button [disabled]="registerloading" type="button" expand="block" color="primary" (click)="onSubmit()">
+                      <ion-spinner name="crescent" *ngIf="registerloading; else textDisplay"></ion-spinner>
+                      <ng-template #textDisplay> 
+                        Register
+                      </ng-template>
+                    </ion-button>
+                  
                 </ion-col>
               </ion-row>
           </form>

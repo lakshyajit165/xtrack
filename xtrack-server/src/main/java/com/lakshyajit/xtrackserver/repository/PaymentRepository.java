@@ -22,7 +22,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Page<Payment> findByPayer(@Param("payer") String payer, Pageable pageable);
 
     // get notes by a particular person within a date range
-    @Query(value = "SELECT p FROM Payment p WHERE (created_at between :from AND :to) AND payer = :payer")
+    @Query(value = "SELECT p FROM Payment p WHERE (created_at between :from AND :to) AND payer = :payer ORDER BY updated_at DESC")
     Page<Payment> findByPayerFilteredByDate(@Param("payer") String payer,
                                             @Param("from") String from,
                                             @Param("to") String to,

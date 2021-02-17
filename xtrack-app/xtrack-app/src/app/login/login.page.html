@@ -15,7 +15,7 @@
                 <div class="login-title">
                   <!-- <ion-icon name="wallet-outline"></ion-icon> -->
                   <h1 ion-text class="app-title">Xtrack</h1>
-                  <h2 ion-text>Log In</h2>
+                  <p ion-text class="login-text">Log In</p>
                 </div>
               </ion-col>
           
@@ -58,13 +58,15 @@
               </ion-row>
               <ion-row>
                 <ion-col class="login-btn">
-                  <ion-button type="button" [disabled]="loginloading" expand="block" color="primary" (click)="loginSubmit()">
-                    <ion-spinner name="crescent" *ngIf="loginloading; else textDisplay"></ion-spinner>
-                    <ng-template #textDisplay>
-                      Log In
-                    </ng-template>
-                    
-                  </ion-button>
+                 
+                    <ion-button type="button" [disabled]="loginloading" expand="block" color="primary" (click)="loginSubmit()">
+                      <ion-spinner name="crescent" *ngIf="loginloading; else textDisplay"></ion-spinner>
+                      <ng-template #textDisplay>
+                        Log In
+                      </ng-template>
+                      
+                    </ion-button>
+                  
                 </ion-col>
               </ion-row>
           </form>
