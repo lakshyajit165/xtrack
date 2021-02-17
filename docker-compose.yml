@@ -20,6 +20,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ~/backup/xtrack:/var/lib/mysql
     container_name: xtrackdb
     network_mode: host
     hostname: localhost
