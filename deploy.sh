@@ -30,9 +30,9 @@ fi
 if [[ $images_count -gt 1 ]]; then
     for j in "$image_names"; do
         for image in $j; do
-            if [[ $image == "mysql" ]]; then
-                docker rmi "$image:8"
-            fi
+            # if [[ $image == "mysql" ]]; then
+            #     docker rmi "$image:8"
+            # fi
 
             if [[ $image == "xtrack-server" ]]; then
                 docker rmi "$image:latest"
