@@ -16,6 +16,10 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 
 import { ICategoryTotal } from '../model/ICategoryTotal';
 
+export interface TableData {
+  category: string;
+  amount: string;
+}
 
 
 @Component({
@@ -33,6 +37,11 @@ export class HomePage implements OnInit {
 
   categoryTotals: ICategoryTotal[];
   categoryDataLoading: boolean = true;
+
+  // Table
+  displayedColumns: string[] = ['category', 'amount'];
+
+  tableData: TableData[] = [];
 
   // Pie chart
    // Pie
@@ -104,12 +113,46 @@ export class HomePage implements OnInit {
      
   }
 
-  loadDataForPieChart(): void {
-    this.pieChartLabels = [];
-    this.pieChartData = [];
-    this.categoryDataLoading = true;
+  // loadDataForPieChart(): void {
+  //   this.pieChartLabels = [];
+  //   this.pieChartData = [];
+  //   this.categoryDataLoading = true;
     
+  //   this.todate = new Date().toISOString().split("T")[0];
+  //   // set start date to 1 month prior to today's date
+    
+    
+  //   let d = new Date();
+  //   this.fromdate= d.toISOString();
+
+  //   d.setMonth(d.getMonth() - 1);
+
+  //   this.fromdate = d.toISOString().split("T")[0];
+
+  //   this.paymentService.getCategoryWiseTotal(this.fromdate, this.todate)
+  //   .then(res => {
+  //     console.log("CATEGORY_WISE DATA");
+  //     console.log(res);
+  //     this.categoryDataLoading = false;
+
+      
+  //     for (const key in res) {
+  //       this.pieChartLabels.push(res[key]['category']);
+  //       this.pieChartData.push(res[key]['amount']);
+  //       // console.log(res[key]['amount'], res[key]['category']);
+  //     }
+      
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // }
+
+  loadDataForTable(): void {
+
+    this.categoryDataLoading = true;
     this.todate = new Date().toISOString().split("T")[0];
+    this.tableData = [];
     // set start date to 1 month prior to today's date
     
     
@@ -120,23 +163,45 @@ export class HomePage implements OnInit {
 
     this.fromdate = d.toISOString().split("T")[0];
 
-    this.paymentService.getCategoryWiseTotal(this.fromdate, this.todate)
+    let from = this.fromdate.split("T").reverse()[1];
+    let to = this.todate.split("T").reverse()[1];
+
+
+    this.paymentService.getCategoryWiseTotal(from, to)
     .then(res => {
-      console.log("CATEGORY_WISE DATA");
-      console.log(res);
+      
       this.categoryDataLoading = false;
 
       
       for (const key in res) {
-        this.pieChartLabels.push(res[key]['category']);
-        this.pieChartData.push(res[key]['amount']);
+        // this.pieChartLabels.push(res[key]['category']);
+        // this.pieChartData.push(res[key]['amount']);
         // console.log(res[key]['amount'], res[key]['category']);
+        this.tableData.push({
+          'category': res[key]['category'],
+          'amount': res[key]['amount']
+        });
       }
+
+      console.log("TABLE DATA"+ this.tableData);
       
     })
     .catch(err => {
       console.log(err);
     })
+
+
+  }
+
+  startDateChanged(event): void {
+
+    this.loadDataForTable();
+  }
+
+  endDateChanged(event): void {
+  
+
+    this.loadDataForTable();
   }
 
   routeFunction(path: string): void {

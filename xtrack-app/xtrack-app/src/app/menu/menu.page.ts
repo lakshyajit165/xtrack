@@ -90,8 +90,10 @@ export class MenuPage implements OnInit {
 
   onActivate(componentRef): void {
     // console.log("COMPONENT_REF", componentRef);
-    if(componentRef instanceof HomePage)
-      componentRef.loadDataForPieChart();
+    if(componentRef instanceof HomePage) {
+      // componentRef.loadDataForPieChart();
+      componentRef.loadDataForTable();
+    }
   }
 
   ionViewDidEnter() {

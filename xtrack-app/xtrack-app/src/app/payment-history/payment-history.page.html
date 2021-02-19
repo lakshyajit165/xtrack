@@ -46,7 +46,7 @@
                   <ion-icon name="wallet-sharp" slot="start"></ion-icon>
                   <ion-label>
                     <h4><strong>Amount:</strong> {{ payment.amount | currency:"INR":"symbol" }}</h4> 
-                    <p> Date: {{ payment.createdAt }}</p>
+                    <p> Date: {{ payment.createdAt | date: 'medium' }}</p>
                     <p>{{ payment.category }}</p>
                   </ion-label>
                   
