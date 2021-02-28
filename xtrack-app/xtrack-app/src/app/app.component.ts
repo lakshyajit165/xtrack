@@ -24,6 +24,7 @@ export class AppComponent implements OnInit{
 
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
+  closeAppAlertOpen: boolean = false;
   
   constructor(
     private platform: Platform,
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit{
     this.initializeApp();
     this.backButtonEvent();
 
-    console.log('contructor called!')
+    // console.log('contructor called!')
     
     // this._router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -141,8 +142,13 @@ export class AppComponent implements OnInit{
   
   backButtonEvent() {
     this.platform.backButton.subscribeWithPriority(9999, () => {
-      if(this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
-        console.log("--------------------------", this._router.url);
+      if((this._router.url === '/xtrack/menu/home' || this._router.url === "/login")) {
+        // console.log("--------------------------", this._router.url);
+        if(this.closeAppAlertOpen){
+          this.closeAppAlertOpen = false;
+          navigator['app'].exitApp();
+        }
+
         this.backButtonAlert();
       } else {
         this.location.back();
@@ -155,16 +161,22 @@ export class AppComponent implements OnInit{
       message: 'Do you want to exit the app?',
       buttons:[{
         text: 'Cancel',
-        role: 'cancel'
+        role: 'cancel',
+        handler: () => {
+          this.closeAppAlertOpen = false; 
+        }
       }, {
         text: 'Close App',
         handler: () => {
+          this.closeAppAlertOpen = false;
           navigator['app'].exitApp();
         }
       }]
     });
 
-    await alert.present();
+    await alert.present().then(() => {
+      this.closeAppAlertOpen = true;
+    });
   }
 
   initializeApp() {
@@ -180,7 +192,7 @@ export class AppComponent implements OnInit{
             this._router.navigate(["/xtrack/menu/home"]);
         } else {
           this.loginstatus.status = false;
-          console.log("user not logged in!");
+          // console.log("user not logged in!");
         }
       })
       .catch(err => {

@@ -32,6 +32,7 @@ export class HomePage implements OnInit {
 
   fromdate: string = "";
   todate: string = "";
+  maxdate: string = "";
 
   isLinear = false;
 
@@ -81,10 +82,21 @@ export class HomePage implements OnInit {
 
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
-    console.log("HOME COMPONENT constructor!");
+    // console.log("HOME COMPONENT constructor!");
 
 
+    this.todate = new Date().toISOString().split("T")[0];
 
+  
+    // set start date to 1 month prior to today's date
+    
+    
+    let d = new Date();
+    // this.fromdate= d.toISOString();
+
+    d.setMonth(d.getMonth() - 1);
+
+    this.fromdate = d.toISOString().split("T")[0];
    
     
   }
@@ -92,11 +104,11 @@ export class HomePage implements OnInit {
  
 
   chartType(event: any) {
-    console.log(event.detail.value);
+    // console.log(event.detail.value);
   }
 
   ngOnInit(): void {
-   console.log("home page ngoninit!");
+  //  console.log("home page ngoninit!");
 
    // ngOnInit - Initialize your component and load data from services that don't need refreshing on each subsequent visit.
     
@@ -104,7 +116,7 @@ export class HomePage implements OnInit {
   }
 
   testData(): void {
-    console.log("TEST DATA from HOME");
+    // console.log("TEST DATA from HOME");
   }
   
   ionViewDidEnter(): void {
@@ -148,28 +160,35 @@ export class HomePage implements OnInit {
   //   })
   // }
 
-  loadDataForTable(): void {
+  loadDataForTable(fromdatechanged, todatechanged): void {
+
+    this.tableData = [];
 
     this.categoryDataLoading = true;
-    this.todate = new Date().toISOString().split("T")[0];
-    this.tableData = [];
+    
+    this.todate = todatechanged === true ? this.todate : new Date().toISOString().split("T")[0];
+
+    this.maxdate = new Date().toISOString().split("T")[0];
+
+    
     // set start date to 1 month prior to today's date
     
     
     let d = new Date();
-    this.fromdate= d.toISOString();
+    // this.fromdate= d.toISOString();
 
     d.setMonth(d.getMonth() - 1);
 
-    this.fromdate = d.toISOString().split("T")[0];
+    this.fromdate = fromdatechanged === true ? this.fromdate: d.toISOString().split("T")[0];
 
     let from = this.fromdate.split("T").reverse()[1];
     let to = this.todate.split("T").reverse()[1];
 
 
-    this.paymentService.getCategoryWiseTotal(from, to)
+    this.paymentService.getCategoryWiseTotal(this.fromdate, this.todate)
     .then(res => {
       
+      // console.log("HOMEPAGE RES");
       this.categoryDataLoading = false;
 
       
@@ -183,7 +202,7 @@ export class HomePage implements OnInit {
         });
       }
 
-      console.log("TABLE DATA"+ this.tableData);
+      // console.log("TABLE DATA"+ this.tableData);
       
     })
     .catch(err => {
@@ -195,13 +214,13 @@ export class HomePage implements OnInit {
 
   startDateChanged(event): void {
 
-    this.loadDataForTable();
+    this.loadDataForTable(true, false);
   }
 
   endDateChanged(event): void {
   
 
-    this.loadDataForTable();
+    this.loadDataForTable(false, true);
   }
 
   routeFunction(path: string): void {

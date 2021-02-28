@@ -106,7 +106,7 @@ export class RegisterPage implements OnInit {
 
     this.registerloading = true;
 
-    console.log(this.user);
+    // console.log(this.user);
     this.authService.signUp(this.user)
     .then(res => {
 

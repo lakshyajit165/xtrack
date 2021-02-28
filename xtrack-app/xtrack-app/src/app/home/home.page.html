@@ -22,7 +22,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper class="home-stepper">
           <mat-step label="Step 1">
             <p>Add your Expenses</p>
             <!-- <div>
@@ -30,14 +30,15 @@
             </div> -->
           </mat-step>
           <mat-step label="Step 2">
-            <p>Keep track of your monthly expenses</p>
+            <p>Edit/Delete them as per your need!</p>
             <!-- <div>
               <button mat-raised-button matStepperPrevious>Back</button>
               <button mat-raised-button matStepperNext>Next</button>
             </div> -->
           </mat-step>
           <mat-step label="Step 3">
-            <p>Edit/Delete them as per your need!</p>
+            
+            <p>Keep track of your expenses acc. to a customized date range!</p>
           </mat-step>
         
           <!-- Icon overrides. -->
@@ -51,25 +52,34 @@
         
       </ion-row>
 
-      <ion-row>
+      <ion-row class="monthly-overview-heading">
         <ion-col>
-          <h5 ion-text style="text-align: center;">Monthly Overview</h5>
+          <h5 ion-text style="text-align: center;">Datewise Overview</h5>
           
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <p ion-text style="text-align: center;">(Last 1 month from today)</p>
+            <ion-item>
+                <ion-label position="floating">Start Date</ion-label>
+                <ion-datetime max={{maxdate}} value={{fromdate}} [(ngModel)]="fromdate" (ionChange)="startDateChanged($event)" placeholder="From"></ion-datetime>
+            </ion-item>    
         </ion-col>
-      </ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label position="floating">End Date</ion-label>
+                <ion-datetime max={{maxdate}} value={{todate}} [(ngModel)]="todate" (ionChange)="endDateChanged($event)" placeholder="To"></ion-datetime>
+            </ion-item>
+        </ion-col>
+    </ion-row>
 
       <ion-row>
         <ion-col>
-          <div *ngIf="categoryDataLoading; else chartBlock" class="chart-loading-spinner">
+          <div *ngIf="categoryDataLoading; else dataBlock" class="chart-loading-spinner">
             <ion-spinner name="crescent"></ion-spinner>
           </div>
-          <ng-template #chartBlock>
+          <ng-template #dataBlock>
             <!-- <ion-item class="ion-no-padding" lines="none" style="display: block; text-align: center; position: relative;">
               <canvas baseChart 
                 [data]="pieChartData" 
@@ -82,22 +92,27 @@
               </canvas>
             </ion-item> -->
             <ion-item lines="none">
-              <table mat-table [dataSource]="tableData" class="table-data">
-                 <!-- Category Column -->
-                <ng-container matColumnDef="category">
-                  <th mat-header-cell *matHeaderCellDef> Category </th>
-                  <td mat-cell *matCellDef="let element" class="category"> <ion-icon name="checkmark-circle-outline" class="row-icon"></ion-icon> {{ element.category | titlecase }} </td>
-                </ng-container>
+              <p class="no-expense" *ngIf="tableData.length === 0; else tableBlock" ion-text>
+                No expenses recorded yet!
+              </p>
+              <ng-template #tableBlock>
+                <table mat-table [dataSource]="tableData" class="table-data">
+                  <!-- Category Column -->
+                  <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef> Category </th>
+                    <td mat-cell *matCellDef="let element" class="category"> <ion-icon name="checkmark-circle-outline" class="row-icon"></ion-icon> {{ element.category | titlecase }} </td>
+                  </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="amount">
-                  <th mat-header-cell *matHeaderCellDef> Amount </th>
-                  <td mat-cell *matCellDef="let element" class="amount"> {{ element.amount | currency:"INR":"symbol" }} </td>
-                </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Amount </th>
+                    <td mat-cell *matCellDef="let element" class="amount"> {{ element.amount | currency:"INR":"symbol" }} </td>
+                  </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </ng-template>
             </ion-item>
           </ng-template>
         </ion-col>

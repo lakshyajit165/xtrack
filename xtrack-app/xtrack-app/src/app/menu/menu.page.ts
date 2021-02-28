@@ -68,7 +68,7 @@ export class MenuPage implements OnInit {
     });
 
     
-    console.log("menu page constructor called");
+    // console.log("menu page constructor called");
    
     
    
@@ -92,15 +92,15 @@ export class MenuPage implements OnInit {
     // console.log("COMPONENT_REF", componentRef);
     if(componentRef instanceof HomePage) {
       // componentRef.loadDataForPieChart();
-      componentRef.loadDataForTable();
+      componentRef.loadDataForTable(false, false);
     }
   }
 
   ionViewDidEnter() {
-    console.log("did enter fired!");
+    // console.log("did enter fired!");
 
     this.storage.getItem('user').then(val => {
-      console.log("Current User ", val);
+      // console.log("Current User ", val);
       this.currentUser = val;
       this.firstLetter = this.currentUser[0].toUpperCase();
     })

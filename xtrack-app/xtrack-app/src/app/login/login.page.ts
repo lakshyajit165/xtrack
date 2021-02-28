@@ -88,7 +88,7 @@ export class LoginPage implements OnInit {
 
 
   loginSubmit(): void {
-    console.log(this.loginform.value);
+    // console.log(this.loginform.value);
 
     this.user.usernameOrEmail = this.loginform.value.usernameOrEmail;
     this.user.password = this.loginform.value.password;
@@ -96,7 +96,7 @@ export class LoginPage implements OnInit {
 
     this.authService.logIn(this.user)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       // store the token in localstorage
       // console.log(res);
       

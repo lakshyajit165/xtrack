@@ -62,7 +62,7 @@ export class PaymentHistoryPage implements OnInit {
     this.startdate = d.toISOString();
     // check if ngOninitalready called, no need to call again
 
-    console.log("STARTDATE:", this.startdate, this.enddate);
+    // console.log("STARTDATE:", this.startdate, this.enddate);
 
    // console.log(this.getStartDateMonth(this.enddate));
   
@@ -79,7 +79,7 @@ export class PaymentHistoryPage implements OnInit {
 
     this.paymentService.getMyPaymentsByDate(from, to, this.currentPage, this.currentSize)
      .then(res => {
-       console.log(res);
+      //  console.log(res);
        this.myPayments = res['content'];
 
        this.paymentsListEmpty = this.myPayments.length === 0 ? true : false;
@@ -88,7 +88,7 @@ export class PaymentHistoryPage implements OnInit {
 
        this.lastPage = res['last'];
        
-       console.log(this.myPayments);
+      //  console.log(this.myPayments);
        this.paymentdetailsloading = false;
      })
  
@@ -122,13 +122,13 @@ export class PaymentHistoryPage implements OnInit {
   }
 
   startDateChanged(event): void {
-    console.log(this.startdate);
+    // console.log(this.startdate);
     this.getPaymentDetails();
   }
 
   endDateChanged(event): void {
-    console.log(event);
-    console.log(this.enddate);
+    // console.log(event);
+    // console.log(this.enddate);
 
     this.getPaymentDetails();
   }

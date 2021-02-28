@@ -137,12 +137,12 @@ export class EditPaymentPage implements OnInit {
       this.payment.description = this.description;
       this.payment.category = this.category.toUpperCase();
 
-      console.log(this.payment);
+      // console.log(this.payment);
 
       // create the upi payment first. Register payment in db after that is success
 
       this.paymentService.editPayment(this.payment, this.id).then(res => {
-        console.log(res);
+        // console.log(res);
         if(res['success']){
 
           // clear fields

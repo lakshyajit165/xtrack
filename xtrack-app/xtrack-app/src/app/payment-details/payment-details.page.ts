@@ -58,12 +58,12 @@ export class PaymentDetailsPage implements OnInit {
     public dialog: MatDialog,
   ) { 
     this.id = +this.activatedRoute.snapshot.paramMap.get('id');
-    console.log(this.id);
+    // console.log(this.id);
 
     this.displayedId += this.id.toString();
-    console.log("Displayed ID: ", this.displayedId);
+    // console.log("Displayed ID: ", this.displayedId);
 
-    console.log(this.router.url);
+    // console.log(this.router.url);
 
     
 
@@ -205,11 +205,11 @@ export class DeletePaymentDialog {
 
   deletePayment(): void {
     this.deleteloading = true;
-    console.log('delete payment!');
+    // console.log('delete payment!');
 
     this.paymentService.deletePayment(this.tid)
     .then(res => {
-      console.log(res);
+      // console.log(res);
 
       // set loading to false
       this.deleteloading = false;
