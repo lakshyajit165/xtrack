@@ -109,7 +109,7 @@ export class AddExpensePage implements OnInit {
   }
 
   validatePayment(): boolean {
-    if((this.amount === undefined || this.amount === "") ||
+    if((this.amount === undefined || this.amount === "" || isNaN(parseFloat(this.amount))) ||
     (this.category === undefined || this.category === "") ||
     (this.description === undefined || this.description === "") ||
     (this.payee === undefined || this.payee === ""))
