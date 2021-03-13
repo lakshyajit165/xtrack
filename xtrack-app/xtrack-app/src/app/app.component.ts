@@ -41,93 +41,12 @@ export class AppComponent implements OnInit{
     this.initializeApp();
     this.backButtonEvent();
 
-    // console.log('contructor called!')
-    
-    // this._router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.previousPage = _previousRouteService.getPreviousUrl();
-    //     console.log(this.previousPage);
-    //     if (!this.previousPage) {
-    //       this.previousPage = '/xtrack';
-          
-    //     }
-    //   }
-    // });
-
-    // this.backButtonEvent();
-
-    // this.platform.backButton.subscribeWithPriority(999, () => {
-    //   console.log('back btn clicked');
-    //   this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
-    //     if (this._router.url != '/xtrack/menu/home') {
-    //       // await this.router.navigate(['/']);
-    //      // await this.location.back();
-    //      this.routeFunction(this.previousPage);
-    //     } else if (this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
-    //       // if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
-    //       //   this.lastTimeBackPress = new Date().getTime();
-    //       //   this.presentAlertConfirm();
-    //       // } else {
-    //         console.log('hellooooooo');
-    //         navigator['app'].exitApp();
-    //       // }
-    //     }
-    //   });
-    // });
-
-   
-    // this.platform.backButton.subscribeWithPriority(5, () => {
-    //   console.log('Handler called to force close!');
-    //   this.alertController.getTop().then(r => {
-    //     if (r) {
-    //       navigator['app'].exitApp();
-    //     }
-    //   }).catch(e => {
-    //     console.log(e);
-    //   })
-    // });
   }
-
-  // backButtonEvent() {
-  //   this.platform.backButton.subscribeWithPriority(999, () => {
-  //     console.log('back btn clicked');
-  //     this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
-  //       if (this._router.url != '/xtrack/menu/home') {
-  //         // await this.router.navigate(['/']);
-  //        // await this.location.back();
-  //        this.routeFunction(this.previousPage);
-  //       } else if (this._router.url === '/xtrack/menu/home' || this._router.url === "/login") {
-  //         // if (new Date().getTime() - this.lastTimeBackPress >= this.timePeriodToExit) {
-  //         //   this.lastTimeBackPress = new Date().getTime();
-  //         //   this.presentAlertConfirm();
-  //         // } else {
-  //           console.log('hellooooooo');
-  //           navigator['app'].exitApp();
-  //         // }
-  //       }
-  //     });
-  //   });
-  // }
 
   
 
   ngOnInit(): void {
-    // this.platform.backButton.subscribeWithPriority(10, () => {
-    //   //console.log(this.previousPage);
-    //   console.log('Handler was called!');
-
-    //   if (this.location.isCurrentPathEqualTo('/xtrack/menu/home')) {
-
-    //     // Show Exit Alert!
-    //     console.log('Show Exit Alert!');
-        
-    //     this.showExitConfirm();
-    //    // processNextHandler();
-    //   } else {
-    //     this.routeFunction(this.previousPage);
-        
-    //   }
-    // });
+  
 
   }
 

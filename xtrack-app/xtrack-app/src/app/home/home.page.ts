@@ -16,6 +16,12 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 
 import { ICategoryTotal } from '../model/ICategoryTotal';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 export interface TableData {
   category: string;
   amount: string;
@@ -36,8 +42,13 @@ export class HomePage implements OnInit {
 
   isLinear = false;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   categoryTotals: ICategoryTotal[];
   categoryDataLoading: boolean = true;
+
+  categoryTotalAmount = 0;
 
   // Table
   displayedColumns: string[] = ['category', 'amount'];
@@ -65,6 +76,7 @@ export class HomePage implements OnInit {
     private router: Router,
     public platform: Platform,
     private authService: AuthService,
+    private _snackBar: MatSnackBar,
     private paymentService: PaymentService,
     private paymentdetails: paymentdetails,
 
@@ -191,6 +203,7 @@ export class HomePage implements OnInit {
       // console.log("HOMEPAGE RES");
       this.categoryDataLoading = false;
 
+      this.categoryTotalAmount = 0;
       
       for (const key in res) {
         // this.pieChartLabels.push(res[key]['category']);
@@ -200,6 +213,8 @@ export class HomePage implements OnInit {
           'category': res[key]['category'],
           'amount': res[key]['amount']
         });
+
+        this.categoryTotalAmount += res[key]['amount'];
       }
 
       // console.log("TABLE DATA"+ this.tableData);
@@ -214,13 +229,29 @@ export class HomePage implements OnInit {
 
   startDateChanged(event): void {
 
-    this.loadDataForTable(true, false);
+    if(Date.parse(this.todate) < Date.parse(this.fromdate)){
+
+      this.openSnackBar('Invalid date range!');
+
+    } else {
+
+      this.loadDataForTable(true, false);
+
+    }
+    
   }
 
   endDateChanged(event): void {
   
+    if(Date.parse(this.todate) < Date.parse(this.fromdate)){
 
-    this.loadDataForTable(false, true);
+      this.openSnackBar('Invalid date range!');
+      
+    } else {
+
+      this.loadDataForTable(false, true);
+
+    }
   }
 
   routeFunction(path: string): void {
@@ -228,8 +259,31 @@ export class HomePage implements OnInit {
     this.router.navigate([path]);
   }
 
- 
+  setFromAndToDates(): void {
 
+    this.todate = new Date().toISOString().split("T")[0];
+
+  
+    // set start date to 1 month prior to today's date
+    
+    
+    let d = new Date();
+    // this.fromdate= d.toISOString();
+
+    d.setMonth(d.getMonth() - 1);
+
+    this.fromdate = d.toISOString().split("T")[0];
+
+  }
+ 
+  openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Close', {
+      duration: 3000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: 'snackbar'
+    });
+  }
  
   // getParamsFromUPIString(params: string, url: string): string {
 

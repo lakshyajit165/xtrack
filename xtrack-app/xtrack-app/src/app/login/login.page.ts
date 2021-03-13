@@ -114,6 +114,11 @@ export class LoginPage implements OnInit {
             error => {}
           );
 
+          this.storage.setItem('date', new Date())
+          .then(
+            () => {},
+            error => {}
+          );
         
 
           // reset the form here

@@ -6,6 +6,12 @@ import { AuthService } from '../services/auth/auth.service';
 import { PaymentService } from '../services/payment/payment.service';
 import { paymentdetails } from '../providers/paymentdetails.provider';
 
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-payment-history',
@@ -30,11 +36,15 @@ export class PaymentHistoryPage implements OnInit {
 
   paymentsListEmpty: boolean = false;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   
   constructor(
     private router: Router,
     public platform: Platform,
     private authService: AuthService,
+    private _snackBar: MatSnackBar,
     private paymentService: PaymentService,
     private paymentdetails: paymentdetails
   ) { }
@@ -72,31 +82,43 @@ export class PaymentHistoryPage implements OnInit {
   getPaymentDetails(): void {
     
     
-    this.paymentdetailsloading = true;
-
+   
     let from = this.startdate.split("T").reverse()[1];
     let to = this.enddate.split("T").reverse()[1];
 
-    this.paymentService.getMyPaymentsByDate(from, to, this.currentPage, this.currentSize)
-     .then(res => {
-      //  console.log(res);
-       this.myPayments = res['content'];
+    if(this.verifyDateRange(from, to)) {
 
-       this.paymentsListEmpty = this.myPayments.length === 0 ? true : false;
+      this.paymentdetailsloading = true;
 
-       this.currentPage = res['page'];
 
-       this.lastPage = res['last'];
-       
-      //  console.log(this.myPayments);
-       this.paymentdetailsloading = false;
-     })
+      this.paymentService.getMyPaymentsByDate(from, to, this.currentPage, this.currentSize)
+      .then(res => {
+       //  console.log(res);
+        this.myPayments = res['content'];
  
-     .catch(err => {
+        this.paymentsListEmpty = this.myPayments.length === 0 ? true : false;
  
-       this.paymentdetailsloading = false;
-       this.paymentFetchError = true;
-     })
+        this.currentPage = res['page'];
+ 
+        this.lastPage = res['last'];
+        
+       //  console.log(this.myPayments);
+        this.paymentdetailsloading = false;
+      })
+  
+      .catch(err => {
+  
+        this.paymentdetailsloading = false;
+        this.paymentFetchError = true;
+      })
+
+    } else {
+
+      this.openSnackBar('Invalid date range!');
+
+    }
+
+   
   }
 
   gotoPaymentDetails(id: number){
@@ -133,6 +155,10 @@ export class PaymentHistoryPage implements OnInit {
     this.getPaymentDetails();
   }
 
+  verifyDateRange(from: string, to: string): boolean {
+    return Date.parse(from) < Date.parse(to);
+  }
+
   nextPage(): void {
     this.currentPage += 1;
     this.getPaymentDetails();
@@ -142,5 +168,15 @@ export class PaymentHistoryPage implements OnInit {
     this.currentPage -= 1;
     this.getPaymentDetails();
   }
+
+  openSnackBar(msg: string) {
+    this._snackBar.open(msg, 'Close', {
+      duration: 3000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      panelClass: 'snackbar'
+    });
+  }
+  
 
 }

@@ -88,7 +88,11 @@ export class AuthService {
 
    let status: boolean;
    await this.storage.getItem('key').then(value => { 
-     status = value ? true : false;
+      const expiry = (JSON.parse(atob(value.split('.')[1]))).exp;
+      // console.log("EXPIRY",expiry);
+      status = !((Math.floor((new Date).getTime() / 1000)) >= expiry);
+
+      // status = value ? true : false;
    });
 
 

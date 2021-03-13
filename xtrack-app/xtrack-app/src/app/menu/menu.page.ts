@@ -92,7 +92,8 @@ export class MenuPage implements OnInit {
     // console.log("COMPONENT_REF", componentRef);
     if(componentRef instanceof HomePage) {
       // componentRef.loadDataForPieChart();
-      componentRef.loadDataForTable(false, false);
+      componentRef.setFromAndToDates();
+      componentRef.loadDataForTable(true, true);
     }
   }
 

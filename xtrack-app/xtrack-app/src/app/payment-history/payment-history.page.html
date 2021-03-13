@@ -73,10 +73,10 @@
 
             <ion-row>
                 <ion-col class="prev">
-                    <button mat-raised-button [disabled]="currentPage === 0" (click)="previousPage()" class="pagination-btns">Prev</button>
+                    <button mat-raised-button [disabled]="currentPage === 0 || !verifyDateRange(startdate, enddate)" (click)="previousPage()" class="pagination-btns">Prev</button>
                 </ion-col>
                 <ion-col class="next">
-                    <button mat-raised-button [disabled]="lastPage" (click)="nextPage()" class="pagination-btns">Next</button>
+                    <button mat-raised-button [disabled]="lastPage || !verifyDateRange(startdate, enddate)" (click)="nextPage()" class="pagination-btns">Next</button>
                 </ion-col>
             </ion-row>
     </ng-template>

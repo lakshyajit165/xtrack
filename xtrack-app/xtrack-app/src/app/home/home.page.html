@@ -54,7 +54,7 @@
 
       <ion-row class="monthly-overview-heading">
         <ion-col>
-          <h5 ion-text style="text-align: center;">Datewise Overview</h5>
+          <h5 ion-text style="text-align: left; padding-left: 19px;">Datewise Overview <span *ngIf="categoryTotalAmount !== 0"><strong>(Total: {{ categoryTotalAmount | currency:"INR":"symbol" }})</strong></span></h5>
           
         </ion-col>
       </ion-row>
