@@ -11,7 +11,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
-
+      
+      # need to setup java 8 to build and compile ionic/cordova app
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
       # Following cmds fail without sudo
       - name: Install Cordova
